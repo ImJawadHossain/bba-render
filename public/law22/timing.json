@@ -1,0 +1,125 @@
+{
+  "total": 99.118,
+  "segments": [
+    {
+      "id": "h1",
+      "start": 0,
+      "end": 5,
+      "voiceStart": 0
+    },
+    {
+      "id": "h2",
+      "start": 5,
+      "end": 11.121,
+      "voiceStart": 5
+    },
+    {
+      "id": "s01",
+      "start": 11.121,
+      "end": 16.841,
+      "voiceStart": 11.121
+    },
+    {
+      "id": "s02",
+      "start": 16.841,
+      "end": 20.562,
+      "voiceStart": 16.841
+    },
+    {
+      "id": "s03",
+      "start": 20.562,
+      "end": 24.762,
+      "voiceStart": 20.562
+    },
+    {
+      "id": "s04",
+      "start": 24.762,
+      "end": 27.282,
+      "voiceStart": 24.762
+    },
+    {
+      "id": "s05",
+      "start": 27.282,
+      "end": 31.833,
+      "voiceStart": 28.032
+    },
+    {
+      "id": "s06",
+      "start": 31.833,
+      "end": 36.833,
+      "voiceStart": 31.833
+    },
+    {
+      "id": "s07",
+      "start": 36.833,
+      "end": 40.713,
+      "voiceStart": 36.833
+    },
+    {
+      "id": "s08",
+      "start": 40.713,
+      "end": 45.874,
+      "voiceStart": 40.713
+    },
+    {
+      "id": "s09",
+      "start": 45.874,
+      "end": 50.874,
+      "voiceStart": 45.874
+    },
+    {
+      "id": "s10",
+      "start": 50.874,
+      "end": 53.955,
+      "voiceStart": 50.874
+    },
+    {
+      "id": "s11",
+      "start": 53.955,
+      "end": 59.355,
+      "voiceStart": 53.955
+    },
+    {
+      "id": "book",
+      "start": 59.355,
+      "end": 67.235,
+      "voiceStart": 59.355
+    },
+    {
+      "id": "lesson",
+      "start": 67.235,
+      "end": 74.796,
+      "voiceStart": 67.235
+    },
+    {
+      "id": "act",
+      "start": 74.796,
+      "end": 79.396,
+      "voiceStart": 74.796
+    },
+    {
+      "id": "next",
+      "start": 79.396,
+      "end": 87.437,
+      "voiceStart": 79.396
+    },
+    {
+      "id": "next2",
+      "start": 87.437,
+      "end": 92.117,
+      "voiceStart": 87.437
+    },
+    {
+      "id": "next3",
+      "start": 92.117,
+      "end": 94.317,
+      "voiceStart": 92.117
+    },
+    {
+      "id": "cta",
+      "start": 94.317,
+      "end": 99.118,
+      "voiceStart": 94.317
+    }
+  ]
+}

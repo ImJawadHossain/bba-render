@@ -159,8 +159,10 @@ import {b28} from './b28/Video';
 import {b29} from './b29/Video';
 import {b30} from './b30/Video';
 
+
 import {VocabPromo, VOCAB_DURATION, VOCAB_TIMING} from './vocab/Video';
 import {VocabPromo2, VOCAB2_DURATION, VOCAB2_TIMING} from './vocab2/Video';
+
 
 import {branded} from './common/Story';
 import {CastLineup, NarratorDemo, NarratorFaces, NarratorGestures} from './characters/Showcase';
@@ -348,6 +350,7 @@ export const Root: React.FC = () => {
         <Still id="Cast" component={CastLineup} width={WIDTH} height={HEIGHT} />
       </Folder>
       <Folder name="Client">
+
         <Composition id="VocabBanglaPromo" component={VocabPromo} width={WIDTH} height={HEIGHT} fps={FPS} durationInFrames={VOCAB_DURATION} defaultProps={{timing: VOCAB_TIMING}} />
         <Composition id="VocabBanglaPromo2" component={VocabPromo2} width={WIDTH} height={HEIGHT} fps={FPS} durationInFrames={VOCAB2_DURATION} defaultProps={{timing: VOCAB2_TIMING}} />
       </Folder>
