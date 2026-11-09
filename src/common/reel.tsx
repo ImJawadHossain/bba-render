@@ -45,7 +45,25 @@ export const R =
   (o: RO): React.FC<SP> =>
   ({dur, id}) => {
     const f = useCurrentFrame();
-    return null;
+    return (
+      <AbsoluteFill>
+        <Tremble amp={8} rot={0.22} over={1.05} seed={`${id}b`}>
+          <SignCtx.Provider value={!o.title}>{o.place ?? <Backdrop bg={o.bg ?? 'plain'} />}</SignCtx.Provider>
+          {o.back ? o.back(f, dur) : null}
+        </Tremble>
+        <Tremble amp={3} rot={0.12} seed={`${id}a`}>
+          {(o.actors ?? []).map((x, i) => (
+            <At key={i} x={x.x} y={x.y ?? 1690}>
+              <Toon height={x.h ?? 1040} {...x.look} expression={x.expression} gesture={x.gesture ?? (x.holding ? 'hold' : 'idle')} holding={x.holding} talking={x.talking} lookX={x.lookX} seed={`r${i}${x.x}`} />
+            </At>
+          ))}
+          {o.front ? o.front(f, dur) : null}
+        </Tremble>
+        <Vignette strength={o.vig ?? 0.45} />
+        {o.over ? o.over(f, dur) : null}
+        {o.title ? <Label text={o.title} color={o.color} size={o.size} top={o.titleTop} at={Math.round(dur * (o.at ?? 0.06))} /> : null}
+      </AbsoluteFill>
+    );
   };
 
 // বড় লেখা আছড়ে পড়ে: শুরুতে বিশাল, তারপর ঠিক মাপে, লাল-নীল আভা সরে যায়
