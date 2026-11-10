@@ -75,9 +75,6 @@ const PoriClip: React.FC = () => (
         background: 'linear-gradient(180deg, rgba(11,13,18,0.48) 0%, rgba(11,13,18,0.04) 22%, rgba(11,13,18,0.04) 62%, rgba(11,13,18,0.88) 100%)',
       }}
     />
-    <div style={{position: 'absolute', right: 36, top: 48, display: 'flex', gap: 12, fontSize: 36, fontWeight: 800, color: '#fff'}}>
-      <span style={{padding: '8px 22px', borderRadius: 14, background: '#e0243c', boxShadow: '0 4px 20px rgba(224,36,60,0.55)'}}>● পরীমনি</span>
-    </div>
   </AbsoluteFill>
 );
 
@@ -89,8 +86,9 @@ const GlassBox: React.FC<{
   borderColor?: string;
   bg?: string;
   top?: number;
+  titleSize?: number;
   icon?: React.ReactNode;
-}> = ({title, sub, color = '#fff', borderColor = 'rgba(255,255,255,0.28)', bg = 'rgba(15,20,30,0.86)', top = 410, icon}) => {
+}> = ({title, sub, color = '#fff', borderColor = 'rgba(255,255,255,0.28)', bg = 'rgba(15,20,30,0.86)', top = 410, titleSize = 72, icon}) => {
   const f = useCurrentFrame();
   const pop = spring({frame: f, fps: 30, config: {damping: 12}});
   return (
@@ -112,7 +110,7 @@ const GlassBox: React.FC<{
       }}
     >
       {icon ? <div style={{marginBottom: 22, display: 'flex', justifyContent: 'center'}}>{icon}</div> : null}
-      <div style={{fontSize: 72, fontWeight: 900, color, lineHeight: 1.28}}>{title}</div>
+      <div style={{fontSize: titleSize, fontWeight: 900, color, lineHeight: 1.28}}>{title}</div>
       {sub ? <div style={{fontSize: 44, fontWeight: 700, color: '#cbd5e1', marginTop: 18}}>{sub}</div> : null}
     </div>
   );
@@ -639,6 +637,11 @@ const SCENES: Record<string, React.FC<SP>> = {
   h1: R({
     place: <PoriClip />,
     vig: 0.2,
+    over: () => (
+      <div style={{position: 'absolute', right: 56, top: 100, display: 'flex', gap: 12, fontSize: 36, fontWeight: 800, color: '#fff'}}>
+        <span style={{padding: '8px 22px', borderRadius: 14, background: '#e0243c', boxShadow: '0 4px 20px rgba(224,36,60,0.55)'}}>● পরীমনি</span>
+      </div>
+    ),
   }),
 
   h2: Two(H2PartA, H2PartB, 0.39),
@@ -754,6 +757,7 @@ const SCENES: Record<string, React.FC<SP>> = {
         color="#f2efe9"
         borderColor={RED}
         top={410}
+        titleSize={62}
         icon={
           <svg width={130} height={130} viewBox="0 0 120 120">
             <circle cx={60} cy={60} r={54} fill="#7f1d1d" stroke={RED} strokeWidth={6} />
