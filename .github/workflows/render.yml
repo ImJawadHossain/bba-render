@@ -1,0 +1,145 @@
+# ফোন থেকে: Actions → Render → Run workflow → ভিডিওর নাম লিখুন; MP4 পাবেন Releases-এ
+name: Render
+
+on:
+  workflow_dispatch:
+    inputs:
+      video:
+        description: "ভিডিওর ID (যেমন RatPark); একাধিক হলে কমা দিয়ে; সবগুলোর জন্য all"
+        required: true
+        default: "RatPark"
+      mode:
+        description: "render = পুরো ভিডিও; check = শুধু প্রতিটা দৃশ্যের একটা করে ছোট ফ্রেম (দ্রুত যাচাই)"
+        required: false
+        default: "render"
+
+permissions:
+  contents: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-24.04
+    outputs:
+      videos: ${{ steps.list.outputs.videos }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ভিডিওর তালিকা ঠিক করা
+        id: list
+        env:
+          VIDEO: ${{ inputs.video }}
+        run: |
+          # Root.tsx-এর সব ভিডিও ID (থাম্বনেইল আর Characters ফোল্ডার বাদে)
+          all=$(grep -oP '(?<=id=")[A-Za-z0-9]+(?=")|(?<=\{id: '"'"')[A-Za-z0-9]+(?='"'"')' src/Root.tsx | grep -vx Cast)
+          if [ "$VIDEO" = "all" ]; then
+            wanted="$all"
+          else
+            wanted=$(echo "$VIDEO" | tr ',' '\n' | sed 's/^ *//; s/ *$//' | grep -v '^$')
+          fi
+          for v in $wanted; do
+            if ! echo "$all" | grep -qx "$v"; then
+              echo "::error::'$v' নামে কোনো ভিডিও নেই। ঠিক নামগুলো: $(echo $all)"
+              exit 1
+            fi
+          done
+          echo "videos=$(echo "$wanted" | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
+
+      - name: Release তৈরি
+        if: inputs.mode != 'check'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view renders >/dev/null 2>&1 || \
+            gh release create renders --title "রেন্ডার করা ভিডিও" --notes "প্রতিটা রেন্ডারের MP4 এখানে জমা হয়। একই ভিডিও আবার রেন্ডার করলে পুরোনোটা বদলে যায়।"
+
+  render:
+    needs: setup
+    if: inputs.mode != 'check'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        video: ${{ fromJson(needs.setup.outputs.videos) }}
+    name: ${{ matrix.video }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Chrome-এর লাইব্রেরি আর Windows ফন্ট বসানো
+        run: |
+          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+          sudo add-apt-repository -y multiverse
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libdbus-1-3 libatk1.0-0 libgbm-dev libasound2t64 libxrandr2 libxkbcommon-dev libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 libcups2 ttf-mscorefonts-installer fonts-noto-color-emoji
+          sudo fc-cache -f
+          # ফন্ট না এলে লেখার চেহারা বদলে যাবে, তাই এখানেই থামবে
+          fc-list | grep -q "Arial Black"
+          fc-list | grep -q "Georgia"
+          fc-list | grep -q "Courier New"
+
+      - run: npm ci
+
+      - name: রেন্ডার
+        env:
+          VIDEO: ${{ matrix.video }}
+        run: npx remotion render src/index.ts "$VIDEO" "out/$VIDEO.mp4"
+
+      - name: Release-এ আপলোড
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VIDEO: ${{ matrix.video }}
+        run: gh release upload renders "out/$VIDEO.mp4" --clobber
+
+      # প্রতি ৫ সেকেন্ডে একটা ফ্রেম নিয়ে একটা ছোট ছবি: ভিডিও না নামিয়েই যাচাই করা যায়
+      - name: যাচাইয়ের ছোট ছবি
+        env:
+          VIDEO: ${{ matrix.video }}
+        run: |
+          sudo apt-get install -y ffmpeg
+          ffmpeg -y -v error -i "out/$VIDEO.mp4" -vf "fps=1/5,scale=220:-1,tile=7x4" -frames:v 1 -q:v 6 "out/$VIDEO-sheet.jpg"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sheet-${{ matrix.video }}
+          path: out/${{ matrix.video }}-sheet.jpg
+          retention-days: 7
+
+  # mode=check: পুরো ভিডিও না বানিয়ে প্রতিটা দৃশ্যের মাঝখানের একটা ফ্রেম, এক পাতায় (scripts/check-frames.mjs)
+  check:
+    needs: setup
+    if: inputs.mode == 'check'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Chrome-এর লাইব্রেরি, ফন্ট আর ffmpeg
+        run: |
+          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+          sudo add-apt-repository -y multiverse
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libdbus-1-3 libatk1.0-0 libgbm-dev libasound2t64 libxrandr2 libxkbcommon-dev libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 libcups2 ttf-mscorefonts-installer fonts-noto-color-emoji ffmpeg
+          sudo fc-cache -f
+
+      - run: npm ci
+
+      - name: ফ্রেম তোলা
+        env:
+          VIDEOS: ${{ join(fromJson(needs.setup.outputs.videos), ' ') }}
+        run: node scripts/check-frames.mjs $VIDEOS
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: check
+          path: out/*-check.jpg
+          retention-days: 7
