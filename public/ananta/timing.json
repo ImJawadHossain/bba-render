@@ -1,0 +1,191 @@
+{
+  "total": 182.28,
+  "segments": [
+    {
+      "id": "quote_law",
+      "start": 0,
+      "end": 2.75,
+      "voiceStart": 0
+    },
+    {
+      "id": "small_debt",
+      "start": 2.75,
+      "end": 7.76,
+      "voiceStart": 2.75
+    },
+    {
+      "id": "huge_debt",
+      "start": 7.76,
+      "end": 11.01,
+      "voiceStart": 7.76
+    },
+    {
+      "id": "bank_stress",
+      "start": 11.01,
+      "end": 14.9,
+      "voiceStart": 11.01
+    },
+    {
+      "id": "notice_broke",
+      "start": 14.9,
+      "end": 20.2,
+      "voiceStart": 14.9
+    },
+    {
+      "id": "huge_amount",
+      "start": 20.2,
+      "end": 25.62,
+      "voiceStart": 20.2
+    },
+    {
+      "id": "hidden_truth",
+      "start": 25.62,
+      "end": 32.75,
+      "voiceStart": 25.62
+    },
+    {
+      "id": "ask_context",
+      "start": 32.75,
+      "end": 35.87,
+      "voiceStart": 32.75
+    },
+    {
+      "id": "ananta_profile",
+      "start": 35.87,
+      "end": 44.86,
+      "voiceStart": 35.87
+    },
+    {
+      "id": "check_bounce",
+      "start": 44.86,
+      "end": 51.61,
+      "voiceStart": 44.86
+    },
+    {
+      "id": "troll_noise",
+      "start": 51.61,
+      "end": 56.76,
+      "voiceStart": 51.61
+    },
+    {
+      "id": "untold_history",
+      "start": 56.76,
+      "end": 62.57,
+      "voiceStart": 56.76
+    },
+    {
+      "id": "covid_2020",
+      "start": 62.57,
+      "end": 67.55,
+      "voiceStart": 62.57
+    },
+    {
+      "id": "world_stopped",
+      "start": 67.55,
+      "end": 70.66,
+      "voiceStart": 67.55
+    },
+    {
+      "id": "orders_cancelled",
+      "start": 70.66,
+      "end": 77.42,
+      "voiceStart": 70.66
+    },
+    {
+      "id": "factories_closed",
+      "start": 77.42,
+      "end": 84.68,
+      "voiceStart": 77.42
+    },
+    {
+      "id": "ten_thousand_workers",
+      "start": 84.68,
+      "end": 90.22,
+      "voiceStart": 84.68
+    },
+    {
+      "id": "no_give_up",
+      "start": 90.22,
+      "end": 96.06,
+      "voiceStart": 90.22
+    },
+    {
+      "id": "workers_family",
+      "start": 96.06,
+      "end": 99.9,
+      "voiceStart": 96.06
+    },
+    {
+      "id": "took_loan",
+      "start": 99.9,
+      "end": 107.94,
+      "voiceStart": 99.9
+    },
+    {
+      "id": "paid_salaries",
+      "start": 107.94,
+      "end": 113.85,
+      "voiceStart": 107.94
+    },
+    {
+      "id": "crisis_after_covid",
+      "start": 113.85,
+      "end": 121.18,
+      "voiceStart": 113.85
+    },
+    {
+      "id": "fugitive_tycoons",
+      "start": 121.18,
+      "end": 128.62,
+      "voiceStart": 121.18
+    },
+    {
+      "id": "ananta_stayed",
+      "start": 128.62,
+      "end": 135.75,
+      "voiceStart": 128.62
+    },
+    {
+      "id": "ready_to_sell",
+      "start": 135.75,
+      "end": 144.24,
+      "voiceStart": 135.75
+    },
+    {
+      "id": "workers_rights",
+      "start": 144.24,
+      "end": 151.05,
+      "voiceStart": 144.24
+    },
+    {
+      "id": "screen_actor",
+      "start": 151.05,
+      "end": 156.75,
+      "voiceStart": 151.05
+    },
+    {
+      "id": "real_hero",
+      "start": 156.75,
+      "end": 164.16,
+      "voiceStart": 156.75
+    },
+    {
+      "id": "true_entrepreneur",
+      "start": 164.16,
+      "end": 170.25,
+      "voiceStart": 164.16
+    },
+    {
+      "id": "cta_lesson",
+      "start": 170.25,
+      "end": 176,
+      "voiceStart": 170.25
+    },
+    {
+      "id": "cta_follow",
+      "start": 176,
+      "end": 182.28,
+      "voiceStart": 176
+    }
+  ]
+}
