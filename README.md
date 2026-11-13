@@ -1,2 +1,2 @@
 # bba-render
-Temporary render workspace.
+Temporary rendering workspace.
