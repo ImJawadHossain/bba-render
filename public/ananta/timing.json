@@ -1,0 +1,227 @@
+{
+  "total": 169.924,
+  "segments": [
+    {
+      "id": "quote_intro",
+      "start": 0,
+      "end": 3.96,
+      "voiceStart": 0
+    },
+    {
+      "id": "quote_ten_lakh",
+      "start": 3.96,
+      "end": 8.721,
+      "voiceStart": 3.96
+    },
+    {
+      "id": "quote_three_hundred",
+      "start": 8.721,
+      "end": 15.081,
+      "voiceStart": 8.721
+    },
+    {
+      "id": "check_bounce_laugh",
+      "start": 15.081,
+      "end": 21.792,
+      "voiceStart": 15.431
+    },
+    {
+      "id": "truth_emerged",
+      "start": 21.792,
+      "end": 25.272,
+      "voiceStart": 21.792
+    },
+    {
+      "id": "critics_salute",
+      "start": 25.272,
+      "end": 30.832,
+      "voiceStart": 25.272
+    },
+    {
+      "id": "what_is_truth",
+      "start": 30.832,
+      "end": 33.033,
+      "voiceStart": 30.832
+    },
+    {
+      "id": "decade_image",
+      "start": 33.033,
+      "end": 39.473,
+      "voiceStart": 33.033
+    },
+    {
+      "id": "dialogue_troll",
+      "start": 39.473,
+      "end": 43.113,
+      "voiceStart": 39.473
+    },
+    {
+      "id": "top_bank_bounce",
+      "start": 43.113,
+      "end": 48.434,
+      "voiceStart": 43.113
+    },
+    {
+      "id": "social_ridicule",
+      "start": 48.434,
+      "end": 53.594,
+      "voiceStart": 48.434
+    },
+    {
+      "id": "hidden_pain",
+      "start": 53.594,
+      "end": 59.105,
+      "voiceStart": 54.344
+    },
+    {
+      "id": "remember_covid",
+      "start": 59.105,
+      "end": 63.625,
+      "voiceStart": 59.105
+    },
+    {
+      "id": "world_stopped",
+      "start": 63.625,
+      "end": 66.145,
+      "voiceStart": 63.625
+    },
+    {
+      "id": "orders_cancelled",
+      "start": 66.145,
+      "end": 71.626,
+      "voiceStart": 66.145
+    },
+    {
+      "id": "factories_locked",
+      "start": 71.626,
+      "end": 75.906,
+      "voiceStart": 71.626
+    },
+    {
+      "id": "workers_starving",
+      "start": 75.906,
+      "end": 79.627,
+      "voiceStart": 75.906
+    },
+    {
+      "id": "ten_thousand_workers",
+      "start": 79.627,
+      "end": 85.587,
+      "voiceStart": 79.627
+    },
+    {
+      "id": "refused_to_quit",
+      "start": 85.587,
+      "end": 90.617,
+      "voiceStart": 85.937
+    },
+    {
+      "id": "chula_off",
+      "start": 90.617,
+      "end": 95.218,
+      "voiceStart": 90.617
+    },
+    {
+      "id": "took_huge_risk",
+      "start": 95.218,
+      "end": 99.338,
+      "voiceStart": 95.218
+    },
+    {
+      "id": "loan_for_workers",
+      "start": 99.338,
+      "end": 106.338,
+      "voiceStart": 99.338
+    },
+    {
+      "id": "covid_passed",
+      "start": 106.338,
+      "end": 108.489,
+      "voiceStart": 107.088
+    },
+    {
+      "id": "interest_crisis",
+      "start": 108.489,
+      "end": 114.769,
+      "voiceStart": 108.489
+    },
+    {
+      "id": "looted_billions",
+      "start": 114.769,
+      "end": 118.57,
+      "voiceStart": 114.769
+    },
+    {
+      "id": "begum_para",
+      "start": 118.57,
+      "end": 123.33,
+      "voiceStart": 118.57
+    },
+    {
+      "id": "stayed_in_country",
+      "start": 123.33,
+      "end": 126.49,
+      "voiceStart": 123.33
+    },
+    {
+      "id": "brave_public_words",
+      "start": 126.49,
+      "end": 129.331,
+      "voiceStart": 126.49
+    },
+    {
+      "id": "sell_factory_promise",
+      "start": 129.331,
+      "end": 135.451,
+      "voiceStart": 129.331
+    },
+    {
+      "id": "save_workers_dignity",
+      "start": 135.451,
+      "end": 138.132,
+      "voiceStart": 135.451
+    },
+    {
+      "id": "screen_dialogue",
+      "start": 138.132,
+      "end": 143.212,
+      "voiceStart": 138.132
+    },
+    {
+      "id": "real_ground_burden",
+      "start": 143.212,
+      "end": 149.332,
+      "voiceStart": 143.212
+    },
+    {
+      "id": "not_cheap_hero",
+      "start": 149.332,
+      "end": 153.133,
+      "voiceStart": 149.332
+    },
+    {
+      "id": "real_patriot",
+      "start": 153.133,
+      "end": 157.653,
+      "voiceStart": 153.133
+    },
+    {
+      "id": "rumor_warning",
+      "start": 157.653,
+      "end": 162.043,
+      "voiceStart": 158.403
+    },
+    {
+      "id": "enrich_knowledge",
+      "start": 162.043,
+      "end": 166.884,
+      "voiceStart": 162.043
+    },
+    {
+      "id": "follow_cta",
+      "start": 166.884,
+      "end": 169.924,
+      "voiceStart": 166.884
+    }
+  ]
+}
