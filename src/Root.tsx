@@ -92,6 +92,7 @@ import {nvidia} from './nvidia/Video';
 import {dawn} from './dawn/Video';
 import {ananta} from './ananta/Video';
 import {baker} from './baker/Video';
+import {dhormo} from './dhormo/Video';
 import {fiveg} from './fiveg/Video';
 import {razakar} from './razakar/Video';
 import {law06} from './law06/Video';
@@ -286,6 +287,8 @@ const MORE = [
   {id: 'AnantaHero', ...fromStory(ananta)},
   // কালজয়ী ইতিহাস: বাকের ভাইয়ের ফাঁসি ও মনস্তাত্ত্বিক সত্য
   {id: 'BakerBhai', ...fromStory(baker)},
+  // সামাজিক দর্শন: ধর্মব্যবসায়ী আসলে কে? আসাদ নূর ও ধর্মব্যবসা
+  {id: 'DhormoByabsayi', ...fromStory(dhormo)},
   // মিস্ট্রি: ৫জি ও মহামারীর টাইমলাইন সমাপতন (Arthur Firstenberg - The Invisible Rainbow)
   {id: 'FiveGConspiracy', ...fromStory(fiveg)},
   // ইতিহাস: ১৪ জুলাই ২০২৪-এর "রাজাকার" মন্তব্য থেকে ৫ আগস্ট (Jawad-এর স্ক্রিপ্ট, Law 4)
