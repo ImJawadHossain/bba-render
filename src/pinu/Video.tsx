@@ -297,46 +297,85 @@ const EyeCaughtCard: React.FC = () => {
   );
 };
 
-// ঠিক এই ছবিটা
-const MasterPhotoHeroFrame: React.FC<{dur: number}> = ({dur}) => {
-  const f = useCurrentFrame();
-  const z = interpolate(f, [0, dur], [1.02, 1.15], clampOpts);
-
+// পূর্ণাঙ্গ ফ্রেমড মাস্টারপিস ফটোগ্রাফ (স্ক্রিনে অন্য কোনো অবজেক্ট থাকবে না, সম্পূর্ণ স্থির প্রামাণ্য ছবি)
+const FramedMasterpiecePhoto: React.FC = () => {
   return (
-    <AbsoluteFill style={{background: '#090b10', overflow: 'hidden'}}>
-      <Img
-        src={staticFile('pinu/under-the-same-sky.jpg')}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-          transform: `scale(${z})`,
-        }}
-      />
+    <AbsoluteFill
+      style={{
+        background: 'radial-gradient(ellipse at 50% 45%, #181b22 0%, #08090c 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+      }}
+    >
+      {/* গ্যালারি স্পটলাইটের মৃদু আভা */}
       <div
         style={{
           position: 'absolute',
-          top: 190,
-          left: 0,
-          right: 0,
-          textAlign: 'center',
-          zIndex: 30,
+          top: '12%',
+          left: '5%',
+          width: '90%',
+          height: '65%',
+          background: 'radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ক্লাসিক্যাল ফটোগ্রাফ ফ্রেম (White Museum Mat Border + Real Physical Shadow) */}
+      <div
+        style={{
+          position: 'relative',
+          width: 980,
+          background: '#ffffff', // খাঁটি আর্ট পেপার সাদা বর্ডার
+          padding: '24px 24px 34px 24px',
+          borderRadius: 8,
+          boxShadow:
+            '0 35px 80px rgba(0,0,0,0.88), 0 12px 30px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.12)',
+          transform: 'translateY(-40px)', // সাবটাইটেল জোন থেকে নিরাপদে উপরে
+          boxSizing: 'border-box',
         }}
       >
-        <span
+        {/* ইনার ফটো ফ্রেম */}
+        <div
           style={{
-            background: 'rgba(220, 38, 38, 0.92)',
-            color: '#fff',
-            fontSize: 44,
-            fontWeight: 900,
-            padding: '12px 32px',
-            borderRadius: 16,
-            border: '4px solid #fff',
-            boxShadow: '0 12px 32px rgba(0,0,0,0.6)',
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '640 / 451',
+            background: '#050608',
+            overflow: 'hidden',
+            border: '1px solid rgba(0,0,0,0.25)',
           }}
         >
-          ঠিক এই ছবিটা!
-        </span>
+          <Img
+            src={staticFile('pinu/under-the-same-sky.jpg')}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+        </div>
+
+        {/* এক্সিবিশন প্রেস ফটোগ্রাফ ক্যাপশন ও ফটোগ্রাফার নাম */}
+        <div
+          style={{
+            marginTop: 14,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '0 6px',
+            color: '#475569',
+            fontFamily: 'sans-serif',
+            fontSize: 20,
+            fontWeight: 800,
+            letterSpacing: 0.5,
+          }}
+        >
+          <span>“Under The Same Sky”</span>
+          <span>Pinu Rahman · HIPA Grand Prize</span>
+        </div>
       </div>
     </AbsoluteFill>
   );
@@ -705,34 +744,19 @@ const SCENES: Record<string, React.FC<SP>> = {
     ),
   }),
 
-  // ১০. ঠিক এই ছবিটা
+  // ১০. ঠিক এই ছবিটা (সম্পূর্ণ স্থির, সুন্দর আর্ট বর্ডার, স্ক্রিনে অন্য কোনো অবজেক্ট নেই)
   this_photo: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    over: (_f, dur) => <MasterPhotoHeroFrame dur={dur} />,
+    place: <FramedMasterpiecePhoto />,
   }),
 
-  // ১১. দেখে মনে হচ্ছিল ভীষণ ক্লান্ত
+  // ১১. দেখে মনে হচ্ছিল ভীষণ ক্লান্ত (স্থিরভাবে দর্শককে বিস্তারিত দেখতে দেওয়া)
   photo_feel: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.25, 1.4]} pos="65% 35%" />
-    ),
-    title: 'ভীষণ ক্লান্ত ঘুম...',
-    color: GOLD,
-    size: 74,
+    place: <FramedMasterpiecePhoto />,
   }),
 
-  // ১২. ঘর নেই, কিছু নেই, তবু একসাথে
+  // ১২. ঘর নেই, কিছু নেই, তবু একসাথে (স্ক্রিনে কোনো অবজেক্ট ছাড়া নীরব দর্শন)
   photo_together: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.15, 1.3]} pos="55% 45%" />
-    ),
-    over: () => (
-      <CenterCard top={420}>
-        <TogetherCard />
-      </CenterCard>
-    ),
+    place: <FramedMasterpiecePhoto />,
   }),
 
   // ১৩. বিদেশি সংবাদ প্রতিষ্ঠান বাছল বিশটা
@@ -787,15 +811,7 @@ const SCENES: Record<string, React.FC<SP>> = {
 
   // ১৭. ছবির নাম দিলেন আন্ডার দ্য সেম স্কাই
   title_sky: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.02, 1.12]} pos="50% 50%" />
-    ),
-    over: () => (
-      <CenterCard top={420}>
-        <TitleSameSkyCard />
-      </CenterCard>
-    ),
+    place: <FramedMasterpiecePhoto />,
   }),
 
   // ১৮. গত মঙ্গলবার পুরস্কারের স্টেজ
