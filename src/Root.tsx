@@ -383,7 +383,7 @@ export const Root: React.FC = () => {
         <Still id="Cast" component={CastLineup} width={WIDTH} height={HEIGHT} />
       </Folder>
       <Folder name="Client">
-        
+
         <Composition id="VocabBanglaPromo" component={VocabPromo} width={WIDTH} height={HEIGHT} fps={FPS} durationInFrames={VOCAB_DURATION} defaultProps={{timing: VOCAB_TIMING}} />
         <Composition id="VocabBanglaPromo2" component={VocabPromo2} width={WIDTH} height={HEIGHT} fps={FPS} durationInFrames={VOCAB2_DURATION} defaultProps={{timing: VOCAB2_TIMING}} />
       </Folder>

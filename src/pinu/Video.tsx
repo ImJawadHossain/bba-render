@@ -297,6 +297,88 @@ const EyeCaughtCard: React.FC = () => {
   );
 };
 
+// পূর্ণাঙ্গ ফ্রেমড ট্রফি ফটোগ্রাফ (পিনু রহমান ও HIPA ট্রফি, সম্পূর্ণ উন্মুক্ত ও পরিষ্কার)
+const FramedTrophyPhoto: React.FC = () => {
+  return (
+    <AbsoluteFill
+      style={{
+        background: 'radial-gradient(ellipse at 50% 45%, #181b22 0%, #08090c 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+      }}
+    >
+      {/* গ্যালারি গোল্ডেন স্পটলাইটের মৃদু আভা */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '12%',
+          left: '5%',
+          width: '90%',
+          height: '65%',
+          background: 'radial-gradient(ellipse at 50% 45%, rgba(217,119,6,0.12) 0%, rgba(0,0,0,0) 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ক্লাসিক্যাল ফটোগ্রাফ ফ্রেম */}
+      <div
+        style={{
+          position: 'relative',
+          width: 760,
+          background: '#ffffff',
+          padding: '24px 24px 34px 24px',
+          borderRadius: 8,
+          boxShadow:
+            '0 35px 80px rgba(0,0,0,0.88), 0 12px 30px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.12)',
+          transform: 'translateY(-40px)',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '622 / 706',
+            background: '#050608',
+            overflow: 'hidden',
+            border: '1px solid rgba(0,0,0,0.25)',
+          }}
+        >
+          <Img
+            src={staticFile('pinu/pinu-trophy.jpg')}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            marginTop: 14,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '0 6px',
+            color: '#475569',
+            fontFamily: 'sans-serif',
+            fontSize: 20,
+            fontWeight: 800,
+            letterSpacing: 0.5,
+          }}
+        >
+          <span>“HIPA Grand Prize Winner”</span>
+          <span>Pinu Rahman · Dubai</span>
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 // পূর্ণাঙ্গ ফ্রেমড মাস্টারপিস ফটোগ্রাফ (স্ক্রিনে অন্য কোনো অবজেক্ট থাকবে না, সম্পূর্ণ স্থির প্রামাণ্য ছবি)
 const FramedMasterpiecePhoto: React.FC = () => {
   return (
@@ -629,43 +711,19 @@ const FinalSearchAppealCard: React.FC = () => {
 // ৫. দৃশ্যের দৃশ্যবিন্যাস (SCENES ম্যাপিং)
 // -------------------------------------------------------------
 const SCENES: Record<string, React.FC<SP>> = {
-  // ১. এই ছবির দাম আড়াই কোটি টাকা
+  // ১. এই ছবির দাম আড়াই কোটি টাকা (সম্পূর্ণ উন্মুক্ত ফ্রেমড ছবি, স্ক্রিনে কোনো অবজেক্ট নেই)
   h1: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.08, 1.2]} pos="50% 45%" />
-    ),
-    over: () => (
-      <CenterCard top={400}>
-        <HookPriceCard />
-      </CenterCard>
-    ),
+    place: <FramedMasterpiecePhoto />,
   }),
 
-  // ২. পোড়া ঘর, খোলা আকাশ
+  // ২. পোড়া ঘর, খোলা আকাশ (সম্পূর্ণ উন্মুক্ত ফ্রেমড ছবি, স্ক্রিনে কোনো অবজেক্ট নেই)
   h2: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.2, 1.35]} pos="65% 38%" />
-    ),
-    over: () => (
-      <CenterCard top={420}>
-        <SleepingFamilyCard />
-      </CenterCard>
-    ),
+    place: <FramedMasterpiecePhoto />,
   }),
 
-  // ৩. গত মঙ্গলবার একজন বাংলাদেশি পেলেন গ্র্যান্ড পুরোস্কার
+  // ৩. গত মঙ্গলবার একজন বাংলাদেশি পেলেন গ্র্যান্ড পুরোস্কার (পিনু রহমান ও HIPA ট্রফি)
   h3: R({
-    place: <ScenicAtmosphereBase photo="stage" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/pinu-trophy.jpg" dur={dur} zoom={[1, 1.07]} pos="50% 25%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <GrandPrizePinuCard />
-      </CenterCard>
-    ),
+    place: <FramedTrophyPhoto />,
   }),
 
   // ৪. কড়াইল বস্তিতে আগুন লাগল
@@ -722,7 +780,7 @@ const SCENES: Record<string, React.FC<SP>> = {
   slum_life: R({
     place: <ScenicAtmosphereBase photo="slum" />,
     back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.1, 1.25]} pos="45% 55%" />
+      <FullScenicPhoto src="pinu/korail-fire.jpg" dur={dur} zoom={[1.05, 1.15]} pos="50% 50%" />
     ),
     over: () => (
       <CenterCard top={420}>
@@ -877,24 +935,16 @@ const SCENES: Record<string, React.FC<SP>> = {
     ),
   }),
 
-  // ২৩. সবশেষে গ্র্যান্ড পুরোস্কার
+  // ২৩. সবশেষে গ্র্যান্ড পুরোস্কার (পিনু রহমান ও HIPA ট্রফি)
   grand_reveal: R({
-    place: <ScenicAtmosphereBase photo="trophy" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/pinu-trophy.jpg" dur={dur} zoom={[1, 1.09]} pos="50% 20%" />
-    ),
-    over: () => (
-      <CenterCard top={420}>
-        <GrandPrizeRevealCard />
-      </CenterCard>
-    ),
+    place: <FramedTrophyPhoto />,
   }),
 
   // ২৪. দুই লাখ মার্কিন ডলার · আড়াই কোটি টাকা
   prize_money: R({
-    place: <ScenicAtmosphereBase photo="trophy" />,
+    place: <ScenicAtmosphereBase photo="stage" />,
     back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/pinu-trophy.jpg" dur={dur} zoom={[1.06, 1.14]} pos="50% 25%" />
+      <FullScenicPhoto src="pinu/award-stage.jpg" dur={dur} zoom={[1.05, 1.14]} pos="50% 45%" />
     ),
     over: () => (
       <CenterCard top={420}>
@@ -905,41 +955,17 @@ const SCENES: Record<string, React.FC<SP>> = {
 
   // ২৫. কিন্তু এই ছবির আসল মানুষগুলো এখনো আড়ালে
   search_begins: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.1, 1.25]} pos="65% 38%" />
-    ),
-    over: () => (
-      <CenterCard top={420}>
-        <MissingFamilyCard />
-      </CenterCard>
-    ),
+    place: <FramedMasterpiecePhoto />,
   }),
 
   // ২৬. একটা ছবি দুনিয়া জিতে নিল, আর মানুষগুলো কোথায়?
   world_won: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.05, 1.18]} pos="50% 45%" />
-    ),
-    over: () => (
-      <CenterCard top={420}>
-        <WorldWonCard />
-      </CenterCard>
-    ),
+    place: <FramedMasterpiecePhoto />,
   }),
 
   // ২৭. তুমি কি চেনো এই পরিবারটাকে? ভিডিওটা শেয়ার করো
   cta: R({
-    place: <ScenicAtmosphereBase photo="slum" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="pinu/under-the-same-sky.jpg" dur={dur} zoom={[1.15, 1.25]} pos="55% 42%" />
-    ),
-    over: () => (
-      <CenterCard top={400}>
-        <FinalSearchAppealCard />
-      </CenterCard>
-    ),
+    place: <FramedMasterpiecePhoto />,
   }),
 };
 
