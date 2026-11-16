@@ -1,0 +1,95 @@
+{
+  "total": 51.78,
+  "segments": [
+    {
+      "id": "h1",
+      "start": 0.0,
+      "end": 3.65,
+      "voiceStart": 0.0
+    },
+    {
+      "id": "h2",
+      "start": 3.65,
+      "end": 7.55,
+      "voiceStart": 3.65
+    },
+    {
+      "id": "opportunity",
+      "start": 7.55,
+      "end": 10.65,
+      "voiceStart": 7.55
+    },
+    {
+      "id": "save_prompt",
+      "start": 10.65,
+      "end": 14.0,
+      "voiceStart": 10.65
+    },
+    {
+      "id": "site1_intro",
+      "start": 14.0,
+      "end": 16.5,
+      "voiceStart": 14.0
+    },
+    {
+      "id": "site1_detail",
+      "start": 16.5,
+      "end": 21.1,
+      "voiceStart": 16.5
+    },
+    {
+      "id": "site2_intro",
+      "start": 21.1,
+      "end": 23.4,
+      "voiceStart": 21.1
+    },
+    {
+      "id": "site2_detail",
+      "start": 23.4,
+      "end": 26.45,
+      "voiceStart": 23.4
+    },
+    {
+      "id": "site3_intro",
+      "start": 26.45,
+      "end": 30.2,
+      "voiceStart": 26.45
+    },
+    {
+      "id": "site3_detail",
+      "start": 30.2,
+      "end": 34.95,
+      "voiceStart": 30.2
+    },
+    {
+      "id": "tech_intro",
+      "start": 34.95,
+      "end": 38.7,
+      "voiceStart": 34.95
+    },
+    {
+      "id": "site4",
+      "start": 38.7,
+      "end": 42.25,
+      "voiceStart": 38.7
+    },
+    {
+      "id": "site5",
+      "start": 42.25,
+      "end": 44.55,
+      "voiceStart": 42.25
+    },
+    {
+      "id": "cta_save",
+      "start": 44.55,
+      "end": 48.6,
+      "voiceStart": 44.55
+    },
+    {
+      "id": "cta_share",
+      "start": 48.6,
+      "end": 51.78,
+      "voiceStart": 48.6
+    }
+  ]
+}

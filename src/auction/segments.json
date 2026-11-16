@@ -1,0 +1,23 @@
+[
+  {"id": "h1", "hit": 2, "text": "[serious] এক ক্লাসে ২০ ডলারের একটা নোট বিক্রি হয় ২০৪ ডলারে।"},
+  {"id": "h2", "text": "ক্রেতারা কেউ বোকা না। সবাই MBA-র ছাত্র।"},
+  {"id": "max", "text": "অধ্যাপক Max Bazerman নোটটা উঁচু করে ধরে।"},
+  {"id": "rule", "voice": "elder", "speaker": "Max", "side": "left", "text": "নিলাম। শুরু এক ডলার। শুধু একটা শর্ত। দ্বিতীয় সর্বোচ্চ দাম যে বলবে, তাকেও টাকা দিতে হবে। কিছু না পেয়ে।"},
+  {"id": "bids", "text": "হাসি। হাত ওঠে। এক, দুই, পাঁচ, দশ।"},
+  {"id": "two", "text": "পনেরোর পর সবাই থেমে যায়। থাকে শুধু Sarah আর Mike।"},
+  {"id": "s18", "voice": "woman", "speaker": "Sarah", "side": "left", "text": "আঠারো।"},
+  {"id": "m19", "voice": "man", "speaker": "Mike", "side": "right", "text": "উনিশ।"},
+  {"id": "sThink", "text": "Sarah হিসাব করে। থামলে আঠারো ডলার জলে যাবে। কুড়ি বললে অন্তত নোটটা পাব।"},
+  {"id": "s20", "voice": "woman", "speaker": "Sarah", "side": "left", "hit": 1, "text": "কুড়ি।"},
+  {"id": "mThink", "text": "Mike-এর উনিশ ডলার যাচ্ছে। একুশ বললে ক্ষতি মাত্র এক।"},
+  {"id": "m21", "voice": "man", "speaker": "Mike", "side": "right", "hit": 1, "text": "একুশ।"},
+  {"id": "quiet", "text": "[long pause] এবার ঘর চুপ।"},
+  {"id": "why", "hit": 2, "text": "কেউ আর নোটের জন্য লড়ছে না। লড়ছে হারতে না চাওয়ার জন্য।"},
+  {"id": "climb", "text": "পঞ্চাশ। একশো। দেড়শো।"},
+  {"id": "record", "hit": 2, "text": "একবার এই খেলায় নোট বিক্রি হয় ২০৪ ডলারে।"},
+  {"id": "always", "text": "Max বছরের পর বছর এই খেলা চালায়। প্রায় কখনো কুড়িতে থামে না।"},
+  {"id": "book", "narrator": {"mode": "pop", "side": "right", "expression": "serious", "pose": "pointL"}, "text": "[serious] এই খেলা বানিয়েছেন অর্থনীতিবিদ Martin Shubik, ১৯৭১ সালে। Max Bazerman লিখেছেন তাঁর বই Judgment in Managerial Decision Making-এ।"},
+  {"id": "lesson", "narrator": {"mode": "full", "pose": "pointUp", "expression": "serious", "text": "শিক্ষাটা সোজা", "lines": ["লড়াই শুরু হলে", "মানুষ ক্ষতি ঢাকতে খেলে"]}, "text": "শিক্ষাটা সোজা: লড়াই শুরু হলে মানুষ আর জিততে খেলে না, আগের ক্ষতি ঢাকতে খেলে।"},
+  {"id": "act", "text": "তাই দামের লড়াই বা ঝগড়ায় নামার আগেই ঠিক করো, কোথায় থামবে।"},
+  {"id": "cta", "text": "Beyond Average কেউ একদিনে হয় না। একটু একটু করে হয়। শুরুটা হোক এই ফলো দিয়ে।"}
+]

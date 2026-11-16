@@ -1,0 +1,172 @@
+[
+  {
+    "id": "hook1",
+    "visual": "eyes",
+    "text": "[serious] \"লোকে কী বলবে\", এই ভয়টা একটা মিথ্যা।"
+  },
+  {
+    "id": "hook2",
+    "visual": "tshirt",
+    "text": "আর সেটা প্রমাণ হয়েছে একটা হাস্যকর টি-শার্ট দিয়ে।"
+  },
+  {
+    "id": "you",
+    "visual": "none",
+    "text": "গতকাল তুমি যে ভুলটা করেছিলে, সেটা নিয়ে তুমি এখনো ভাবছ।",
+    "narrator": {
+      "mode": "full",
+      "expression": "serious",
+      "pose": "pointUp",
+      "text": "গতকালের ভুল"
+    }
+  },
+  {
+    "id": "meet",
+    "visual": "meet",
+    "text": "মিটিংয়ে কথা বলতে গিয়ে আটকে গেলে।"
+  },
+  {
+    "id": "wname",
+    "visual": "wname",
+    "text": "ভুল নামে কাউকে ডেকে ফেললে।"
+  },
+  {
+    "id": "stain",
+    "visual": "stain",
+    "text": "শার্টে একটা দাগ নিয়ে সারাদিন ঘুরলে।"
+  },
+  {
+    "id": "night",
+    "visual": "night",
+    "text": "রাতে শুয়েও মাথায় ঘুরছে: সবাই কী ভাবল?"
+  },
+  {
+    "id": "gilo",
+    "visual": "gilo",
+    "text": "[short pause] Cornell University-র সাইকোলজিস্ট Thomas Gilovich এই প্রশ্নের উত্তর খুঁজতে একটা নিষ্ঠুর মজা করলেন।"
+  },
+  {
+    "id": "wear",
+    "visual": "wear",
+    "text": "এক ছাত্রকে পরতে দিলেন এমন এক টি-শার্ট, যেটা পরতে যে কারও লজ্জা লাগবে।"
+  },
+  {
+    "id": "singer",
+    "visual": "singer",
+    "text": "বুকে বড় করে এক গায়কের মুখ, যাকে ছাত্ররা একদম পছন্দ করত না।"
+  },
+  {
+    "id": "go",
+    "visual": "go",
+    "text": "তারপর বললেন: যাও, ক্লাস ভর্তি মানুষ। তুমি দেরি করে ঢোকো।"
+  },
+  {
+    "id": "enter",
+    "visual": "enter",
+    "text": "ছাত্র ঢুকল। কান গরম। মনে হলো সবাই তাকিয়ে আছে।"
+  },
+  {
+    "id": "ask",
+    "visual": "ask",
+    "text": "একটু পর বাইরে ডেকে জিজ্ঞেস করা হলো: কতজন তোমার শার্ট খেয়াল করেছে?"
+  },
+  {
+    "id": "guess",
+    "visual": "guess",
+    "text": "সে বলল: অর্ধেক তো হবেই।"
+  },
+  {
+    "id": "askall",
+    "visual": "askall",
+    "text": "এবার ক্লাসের সবাইকে জিজ্ঞেস করা হলো।"
+  },
+  {
+    "id": "real",
+    "visual": "real",
+    "text": "[serious] খেয়াল করেছে প্রায় চারভাগের একভাগ।"
+  },
+  {
+    "id": "half",
+    "visual": "bars",
+    "text": "যা ভেবেছিল, তার অর্ধেক।"
+  },
+  {
+    "id": "funny",
+    "visual": "funny",
+    "text": "আর সেটাও এমন হাস্যকর একটা শার্ট পরে।"
+  },
+  {
+    "id": "why",
+    "visual": "none",
+    "text": "কেন এমন হয়?",
+    "narrator": {
+      "mode": "full",
+      "expression": "surprised",
+      "pose": "explain",
+      "text": "কেন?"
+    }
+  },
+  {
+    "id": "hero",
+    "visual": "hero",
+    "text": "কারণ তোমার জীবনের সিনেমায় তুমি নায়ক। ক্যামেরা সারাক্ষণ তোমার ওপর।"
+  },
+  {
+    "id": "allhero",
+    "visual": "allhero",
+    "text": "কিন্তু বাকি সবাইও নিজের সিনেমার নায়ক।"
+  },
+  {
+    "id": "busy",
+    "visual": "busy",
+    "text": "তারা ব্যস্ত ভাবতে: \"আমাকে কেমন লাগছে?\""
+  },
+  {
+    "id": "notime",
+    "visual": "notime",
+    "text": "তোমার দিকে তাকানোর সময় কার আছে?"
+  },
+  {
+    "id": "term",
+    "visual": "none",
+    "text": "এই ভুলের নাম Spotlight Effect।",
+    "narrator": {
+      "mode": "full",
+      "expression": "smile",
+      "pose": "present",
+      "big": "Spotlight Effect",
+      "accent": "#e3bf7a"
+    }
+  },
+  {
+    "id": "next",
+    "visual": "none",
+    "text": "[softly] পরের বার লজ্জা লাগলে নিজেকে একটা প্রশ্ন করো:",
+    "narrator": {
+      "mode": "full",
+      "expression": "smile",
+      "pose": "idea",
+      "text": "একটা প্রশ্ন"
+    }
+  },
+  {
+    "id": "month",
+    "visual": "month",
+    "text": "গত মাসে অন্য কেউ যে ভুলটা করেছিল, সেটা কি আমার মনে আছে?"
+  },
+  {
+    "id": "gone",
+    "visual": "gone",
+    "text": "নেই, তাই না? তাহলে তোমারটাও কারও মনে নেই।"
+  },
+  {
+    "id": "start",
+    "visual": "start",
+    "text": "যে কাজটা \"লোকে কী বলবে\" ভেবে আটকে রেখেছ, সেটা আজই শুরু করো।"
+  },
+  {
+    "id": "cta",
+    "visual": "cta",
+    "text": "মানুষের মনের এমন সত্য জানতে BBA-কে ফলো করো।"
+  }
+]
