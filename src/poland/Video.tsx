@@ -1,5 +1,5 @@
 // পোল্যান্ডে সরাসরি চাকরির ৫টি সেরা ওয়েবসাইট — PolandJobs (Client: Nazim Hossain)
-// Ultra-minimal, elegant, modern, high-retention reel design
+// High-end, professional corporate/tech agency style with real brand logos & synced sound effects
 import React from 'react';
 import {
   AbsoluteFill,
@@ -26,7 +26,7 @@ const segments = raw as BaseSegment[];
 
 // Client Brand Colors (Nazim Hossain)
 const BRAND_LIME = '#a3e635'; // Vibrant Lime Green
-const BRAND_LIME_GLOW = 'rgba(163, 230, 53, 0.4)';
+const BRAND_LIME_GLOW = 'rgba(163, 230, 53, 0.45)';
 const TEXT_WHITE = '#ffffff';
 
 // -------------------------------------------------------------
@@ -45,7 +45,7 @@ const ClientWatermark: React.FC = () => {
       <Img
         src={staticFile('poland/nazim-watermark.png')}
         style={{
-          width: 270,
+          width: 280,
           height: 'auto',
           filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.85))',
         }}
@@ -55,7 +55,7 @@ const ClientWatermark: React.FC = () => {
 };
 
 // -------------------------------------------------------------
-// ২. প্রিমিয়াম সিনেম্যাটিক ব্যাকগ্রাউন্ড (Subtle Motion + Cinematic Lighting)
+// ২. প্রিমিয়াম সিনেম্যাটিক ব্যাকগ্রাউন্ড (Slow Zoom + Vignette)
 // -------------------------------------------------------------
 const CinematicBackdrop: React.FC<{
   src: string;
@@ -81,17 +81,16 @@ const CinematicBackdrop: React.FC<{
           transform: `scale(${z})`,
         }}
       />
-      {/* সিনেমাটিক ব্ল্যাক গ্রেডিয়েন্ট ও লাইটিং — ছবি দৃশ্যমান থাকবে, লেখা স্পষ্ট হবে */}
       <AbsoluteFill
         style={{
           background:
-            'linear-gradient(180deg, rgba(8,12,20,0.65) 0%, rgba(8,12,20,0.15) 25%, rgba(8,12,20,0.2) 65%, rgba(8,12,20,0.92) 100%)',
+            'linear-gradient(180deg, rgba(8,12,20,0.65) 0%, rgba(8,12,20,0.18) 25%, rgba(8,12,20,0.25) 65%, rgba(8,12,20,0.92) 100%)',
         }}
       />
       <AbsoluteFill
         style={{
           background:
-            'radial-gradient(circle at 50% 45%, rgba(0,0,0,0) 40%, rgba(5,8,14,0.65) 100%)',
+            'radial-gradient(circle at 50% 45%, rgba(0,0,0,0) 40%, rgba(5,8,14,0.6) 100%)',
         }}
       />
     </AbsoluteFill>
@@ -99,7 +98,7 @@ const CinematicBackdrop: React.FC<{
 };
 
 // -------------------------------------------------------------
-// ৩. মিনিমাল গ্লাস ক্যাপসুল পিল (Minimal Floating Capsule)
+// ৩. মিনিমাল ইনফো ক্যাপসুল (Floating Info Pill)
 // -------------------------------------------------------------
 const FloatingCapsule: React.FC<{
   tag?: string;
@@ -108,7 +107,7 @@ const FloatingCapsule: React.FC<{
   accent?: string;
 }> = ({tag, title, sub, accent = BRAND_LIME}) => {
   const f = useCurrentFrame();
-  const pop = spring({frame: f, fps: 30, config: {damping: 15, stiffness: 120}});
+  const pop = spring({frame: f, fps: 30, config: {damping: 14, stiffness: 120}});
   const floatY = Math.sin(f * 0.06) * 5;
 
   return (
@@ -128,13 +127,13 @@ const FloatingCapsule: React.FC<{
     >
       <div
         style={{
-          padding: '24px 44px',
-          background: 'rgba(10, 16, 30, 0.55)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
+          padding: '28px 44px',
+          background: 'rgba(10, 16, 30, 0.65)',
+          backdropFilter: 'blur(26px)',
+          WebkitBackdropFilter: 'blur(26px)',
           borderRadius: 26,
-          border: '1px solid rgba(255, 255, 255, 0.14)',
-          boxShadow: '0 25px 60px rgba(0,0,0,0.65), 0 0 35px rgba(0,0,0,0.3)',
+          border: '1.2px solid rgba(255, 255, 255, 0.16)',
+          boxShadow: '0 25px 65px rgba(0,0,0,0.7), 0 0 35px rgba(0,0,0,0.3)',
           textAlign: 'center',
           maxWidth: 820,
         }}
@@ -163,7 +162,7 @@ const FloatingCapsule: React.FC<{
 
         <div
           style={{
-            fontSize: 50,
+            fontSize: 48,
             fontWeight: 900,
             color: TEXT_WHITE,
             lineHeight: 1.25,
@@ -193,15 +192,26 @@ const FloatingCapsule: React.FC<{
 };
 
 // -------------------------------------------------------------
-// ৪. এলিগেন্ট মিনিমাল ওয়েবসাইট শোকেস কার্ড (Sleek Floating Web Card)
+// ৪. অফিশিয়াল ব্র্যান্ড লোগো শোকেস কার্ড (Official Brand Showcase Card)
 // -------------------------------------------------------------
-const MinimalWebsiteCard: React.FC<{
+const OfficialBrandCard: React.FC<{
   number: string;
-  name: string;
+  logoSrc: string;
+  logoType?: 'img' | 'svg';
+  logoBg?: string;
   domain: string;
-  category: string;
+  badge: string;
   highlight: string;
-}> = ({number, name, domain, category, highlight}) => {
+  tags?: string[];
+}> = ({
+  number,
+  logoSrc,
+  logoBg = '#ffffff',
+  domain,
+  badge,
+  highlight,
+  tags = [],
+}) => {
   const f = useCurrentFrame();
   const pop = spring({frame: f, fps: 30, config: {damping: 14, stiffness: 110}});
   const floatY = Math.sin(f * 0.05) * 6;
@@ -210,7 +220,7 @@ const MinimalWebsiteCard: React.FC<{
     <div
       style={{
         position: 'absolute',
-        top: 440,
+        top: 400,
         left: 55,
         right: 55,
         display: 'flex',
@@ -225,21 +235,21 @@ const MinimalWebsiteCard: React.FC<{
         style={{
           width: '100%',
           maxWidth: 780,
-          background: 'rgba(9, 14, 26, 0.65)',
-          backdropFilter: 'blur(28px)',
-          WebkitBackdropFilter: 'blur(28px)',
+          background: 'rgba(9, 14, 26, 0.72)',
+          backdropFilter: 'blur(30px)',
+          WebkitBackdropFilter: 'blur(30px)',
           borderRadius: 30,
-          border: '1.2px solid rgba(255, 255, 255, 0.16)',
-          boxShadow: '0 30px 80px rgba(0,0,0,0.7), 0 0 40px rgba(163, 230, 53, 0.15)',
+          border: '1.2px solid rgba(255, 255, 255, 0.18)',
+          boxShadow: '0 30px 85px rgba(0,0,0,0.75), 0 0 45px rgba(163, 230, 53, 0.18)',
           overflow: 'hidden',
           boxSizing: 'border-box',
         }}
       >
-        {/* মিনিমাল হেডার স্ট্রিপ */}
+        {/* টপ হেডার বার: ম্যাক ট্রাফিক ডটস + URL বার + নম্বর */}
         <div
           style={{
-            padding: '16px 28px',
-            background: 'rgba(255, 255, 255, 0.04)',
+            padding: '16px 26px',
+            background: 'rgba(255, 255, 255, 0.05)',
             borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
             display: 'flex',
             justifyContent: 'space-between',
@@ -253,16 +263,16 @@ const MinimalWebsiteCard: React.FC<{
             <div style={{width: 13, height: 13, borderRadius: '50%', background: '#27c93f'}} />
           </div>
 
-          {/* মিনিমাল URL পিল */}
+          {/* ডোমেইন পিল */}
           <div
             style={{
-              padding: '5px 16px',
+              padding: '6px 18px',
               borderRadius: 999,
               background: 'rgba(255, 255, 255, 0.08)',
               border: '1px solid rgba(255, 255, 255, 0.12)',
-              fontSize: 20,
+              fontSize: 21,
               fontFamily: 'monospace',
-              color: '#e2e8f0',
+              color: '#f8fafc',
               fontWeight: 700,
               display: 'flex',
               alignItems: 'center',
@@ -286,50 +296,92 @@ const MinimalWebsiteCard: React.FC<{
           </div>
         </div>
 
-        {/* কার্ডের মূল অংশ — ক্লিন, ফোকাসড ও পরিপাটি */}
-        <div style={{padding: '36px 36px 40px', textAlign: 'center'}}>
-          {/* ক্যাটাগরি */}
+        {/* কার্ডের সেন্ট্রাল লোগো স্টেজ */}
+        <div style={{padding: '34px 34px 38px', textAlign: 'center'}}>
+          {/* আসল কোম্পানির অফিশিয়াল লোগো কন্টেইনার */}
           <div
             style={{
-              display: 'inline-block',
-              fontSize: 22,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: logoBg,
+              borderRadius: 22,
+              padding: '16px 36px',
+              boxShadow: '0 16px 40px rgba(0,0,0,0.4)',
+              marginBottom: 20,
+              minWidth: 260,
+              height: 80,
+              boxSizing: 'border-box',
+            }}
+          >
+            <Img
+              src={staticFile(logoSrc)}
+              style={{
+                maxHeight: 58,
+                maxWidth: 280,
+                objectFit: 'contain',
+              }}
+            />
+          </div>
+
+          {/* ভেরিফায়েড টপিক ব্যাজ */}
+          <div style={{marginBottom: 10}}>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                background: 'rgba(56, 189, 248, 0.16)',
+                border: '1px solid rgba(56, 189, 248, 0.4)',
+                color: '#38bdf8',
+                fontSize: 22,
+                fontWeight: 800,
+                padding: '6px 18px',
+                borderRadius: 999,
+                letterSpacing: 0.5,
+              }}
+            >
+              <span>✓</span>
+              <span>{badge}</span>
+            </span>
+          </div>
+
+          {/* হাইলাইট টেক্সট */}
+          <div
+            style={{
+              fontSize: 34,
               fontWeight: 800,
-              color: '#38bdf8',
-              letterSpacing: 0.8,
-              marginBottom: 12,
-              textTransform: 'uppercase',
-            }}
-          >
-            {category}
-          </div>
-
-          {/* সাইটের নাম */}
-          <div
-            style={{
-              fontSize: 68,
-              fontWeight: 900,
               color: TEXT_WHITE,
-              letterSpacing: 0.5,
-              lineHeight: 1.15,
-              marginBottom: 14,
-              textShadow: '0 4px 20px rgba(0,0,0,0.8)',
-            }}
-          >
-            {name}
-          </div>
-
-          {/* এক লাইনের প্রিমিয়াম হাইলাইট */}
-          <div
-            style={{
-              fontSize: 28,
-              fontWeight: 700,
-              color: BRAND_LIME,
               lineHeight: 1.35,
-              textShadow: `0 0 20px ${BRAND_LIME_GLOW}`,
+              marginTop: 6,
+              marginBottom: 12,
+              textShadow: '0 2px 14px rgba(0,0,0,0.8)',
             }}
           >
             {highlight}
           </div>
+
+          {/* ছোট ফিচার পিলস */}
+          {tags.length > 0 && (
+            <div style={{display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap'}}>
+              {tags.map((t, idx) => (
+                <span
+                  key={idx}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    padding: '5px 14px',
+                    borderRadius: 8,
+                    fontSize: 20,
+                    fontWeight: 600,
+                    color: '#cbd5e1',
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -337,7 +389,7 @@ const MinimalWebsiteCard: React.FC<{
 };
 
 // -------------------------------------------------------------
-// ৫. আধুনিক এলিগেন্ট সাবটাইটেল (Minimal Frosted Glass Pill)
+// ৫. আধুনিক এলিগেন্ট সাবটাইটেল (Minimal Frosted Glass Capsule)
 // -------------------------------------------------------------
 const ModernSubtitle: React.FC<{
   text: string;
@@ -363,13 +415,13 @@ const ModernSubtitle: React.FC<{
     >
       <div
         style={{
-          background: 'rgba(8, 12, 22, 0.72)',
-          backdropFilter: 'blur(18px)',
-          WebkitBackdropFilter: 'blur(18px)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          background: 'rgba(8, 12, 22, 0.75)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.14)',
           borderRadius: 999,
           padding: '14px 34px',
-          boxShadow: '0 12px 35px rgba(0,0,0,0.6)',
+          boxShadow: '0 12px 35px rgba(0,0,0,0.65)',
           textAlign: 'center',
           maxWidth: 960,
         }}
@@ -410,14 +462,15 @@ const ModernSubtitle: React.FC<{
 };
 
 // -------------------------------------------------------------
-// ৬. প্রতিটি দৃশ্যের ভিজ্যুয়াল ম্যাপিং (Clean, Minimal, High-Impact)
+// ৬. প্রতিটি দৃশ্যের ভিজ্যুয়াল ও সাউন্ড ইফেক্ট রেন্ডারার
 // -------------------------------------------------------------
 const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
   switch (id) {
-    // ১. হুক: দালালের ফাঁদ নয়
+    // ১. হুক: দালালের ফাঁদ এড়িয়ে চলুন
     case 'h1':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
           <CinematicBackdrop src="poland/agency-trap.jpg" dur={dur} pos="50% 40%" />
           <FloatingCapsule
             tag="সচেতনতা"
@@ -432,6 +485,7 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
     case 'h2':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/pop.mp3')} volume={0.4} />
           <CinematicBackdrop src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" />
           <FloatingCapsule
             tag="সরাসরি ক্যারিয়ার"
@@ -441,10 +495,11 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
         </AbsoluteFill>
       );
 
-    // ৩. ওয়ারশ স্কাইলাইন
+    // ৩. ওয়ারশ স্কাইলাইন ও কাজের সুযোগ
     case 'opportunity':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
           <CinematicBackdrop src="poland/warsaw-skyline.jpg" dur={dur} pos="50% 45%" />
           <FloatingCapsule
             tag="ইউরোপীয় ইউনিয়ন"
@@ -458,6 +513,7 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
     case 'save_prompt':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/chime.mp3')} volume={0.4} />
           <CinematicBackdrop src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" />
           <FloatingCapsule
             tag="জরুরি টিপস"
@@ -467,17 +523,21 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
         </AbsoluteFill>
       );
 
-    // ৫. সাইট ১: Pracuj.pl
+    // ৫. সাইট ১: Pracuj.pl (আসল অফিশিয়াল লোগো সহ)
     case 'site1_intro':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
+          <Audio src={staticFile('poland/sfx/pop.mp3')} volume={0.45} startFrom={5} />
           <CinematicBackdrop src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" />
-          <MinimalWebsiteCard
+          <OfficialBrandCard
             number="01 / 05"
-            name="Pracuj.pl"
+            logoSrc="poland/logos/pracuj.png"
+            logoBg="#ffffff"
             domain="pracuj.pl"
-            category="পোল্যান্ডের #১ পোর্টাল"
+            badge="পোল্যান্ডের #১ পোর্টাল"
             highlight="সবচেয়ে বড় ও নির্ভরযোগ্য জব সাইট"
+            tags={['সব সেক্টর', 'ইংরেজি সাপোর্ট', 'ভেরিফাইড কোম্পানি']}
           />
         </AbsoluteFill>
       );
@@ -486,6 +546,7 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
     case 'site1_detail':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/ding.mp3')} volume={0.35} />
           <CinematicBackdrop src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" />
           <FloatingCapsule
             tag="Pracuj.pl"
@@ -495,17 +556,21 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
         </AbsoluteFill>
       );
 
-    // ৭. সাইট ২: Praca.pl
+    // ৭. সাইট ২: Praca.pl (আসল অফিশিয়াল ভেক্টর লোগো সহ)
     case 'site2_intro':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
+          <Audio src={staticFile('poland/sfx/pop.mp3')} volume={0.45} startFrom={5} />
           <CinematicBackdrop src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" />
-          <MinimalWebsiteCard
+          <OfficialBrandCard
             number="02 / 05"
-            name="Praca.pl"
+            logoSrc="poland/logos/praca.svg"
+            logoBg="#ffffff"
             domain="praca.pl"
-            category="দৈনিক আপডেট"
+            badge="দৈনিক ফ্রেশ জবস"
             highlight="হাজারো নতুন সার্কুলার প্রতিদিন"
+            tags={['ডেইলি আপডেট', 'সরাসরি সিভি সেন্ড', 'ফ্রি রেজিস্ট্রেশন']}
           />
         </AbsoluteFill>
       );
@@ -514,6 +579,7 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
     case 'site2_detail':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/ding.mp3')} volume={0.35} />
           <CinematicBackdrop src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" />
           <FloatingCapsule
             tag="Praca.pl"
@@ -523,17 +589,21 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
         </AbsoluteFill>
       );
 
-    // ৯. সাইট ৩: praca.olx.pl
+    // ৯. সাইট ৩: praca.olx.pl (আসল অফিশিয়াল OLX ভেক্টর লোগো সহ)
     case 'site3_intro':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
+          <Audio src={staticFile('poland/sfx/pop.mp3')} volume={0.45} startFrom={5} />
           <CinematicBackdrop src="poland/warehouse-work.jpg" dur={dur} pos="50% 45%" />
-          <MinimalWebsiteCard
+          <OfficialBrandCard
             number="03 / 05"
-            name="praca.olx.pl"
+            logoSrc="poland/logos/olx.svg"
+            logoBg="#002f34"
             domain="praca.olx.pl"
-            category="দ্রুত নিয়োগের মার্কেট"
+            badge="দ্রুত নিয়োগের মার্কেট"
             highlight="ব্লু-কলার ও ওয়্যারহাউস কাজ"
+            tags={['ওয়্যারহাউস', 'ড্রাইভিং', 'কনস্ট্রাকশন', 'ক্লিনার']}
           />
         </AbsoluteFill>
       );
@@ -542,6 +612,7 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
     case 'site3_detail':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/ding.mp3')} volume={0.35} />
           <CinematicBackdrop src="poland/construction-poland.jpg" dur={dur} pos="50% 45%" />
           <FloatingCapsule
             tag="জেনারেল জবস"
@@ -551,10 +622,11 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
         </AbsoluteFill>
       );
 
-    // ১১. আইটি ও টেক সেক্টর
+    // ১১. আইটি ও টেক ভূমিকা
     case 'tech_intro':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
           <CinematicBackdrop src="poland/tech-developer.jpg" dur={dur} pos="50% 40%" />
           <FloatingCapsule
             tag="হাই-স্যালারি"
@@ -564,32 +636,40 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
         </AbsoluteFill>
       );
 
-    // ১২. সাইট ৪: NoFluffJobs
+    // ১২. সাইট ৪: NoFluffJobs (আসল অফিশিয়াল ভেক্টর লোগো সহ)
     case 'site4':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
+          <Audio src={staticFile('poland/sfx/pop.mp3')} volume={0.45} startFrom={5} />
           <CinematicBackdrop src="poland/tech-developer.jpg" dur={dur} pos="50% 40%" />
-          <MinimalWebsiteCard
+          <OfficialBrandCard
             number="04 / 05"
-            name="NoFluffJobs"
+            logoSrc="poland/logos/nofluff.svg"
+            logoBg="#1b2533"
             domain="nofluffjobs.com"
-            category="স্যালারি প্রকাশ্য"
+            badge="১০০% স্যালারি প্রকাশ্য"
             highlight="ইউরোপীয় আইটি ও টেক জবস"
+            tags={['সফটওয়্যার', 'রিমোট / অনসাইট', 'বেতন উন্মুক্ত']}
           />
         </AbsoluteFill>
       );
 
-    // ১৩. সাইট ৫: JustJoin.it
+    // ১৩. সাইট ৫: JustJoin.it (আসল অফিশিয়াল ভেক্টর লোগো সহ)
     case 'site5':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/whoosh.mp3')} volume={0.35} />
+          <Audio src={staticFile('poland/sfx/pop.mp3')} volume={0.45} startFrom={5} />
           <CinematicBackdrop src="poland/tech-developer.jpg" dur={dur} pos="50% 40%" />
-          <MinimalWebsiteCard
+          <OfficialBrandCard
             number="05 / 05"
-            name="JustJoin.it"
+            logoSrc="poland/logos/justjoin.svg"
+            logoBg="#ffffff"
             domain="justjoin.it"
-            category="ইউরোপের শীর্ষ প্ল্যাটফর্ম"
+            badge="ইউরোপের শীর্ষ প্ল্যাটফর্ম"
             highlight="ডেভেলপার ও টেক প্রফেশনালস"
+            tags={['প্রোডাক্ট', 'আইটি সাপোর্ট', 'হাই স্যালারি']}
           />
         </AbsoluteFill>
       );
@@ -598,6 +678,7 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
     case 'cta_save':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/chime.mp3')} volume={0.4} />
           <CinematicBackdrop src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" />
           <FloatingCapsule
             tag="রিমাইন্ডার"
@@ -611,6 +692,7 @@ const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
     case 'cta_share':
       return (
         <AbsoluteFill>
+          <Audio src={staticFile('poland/sfx/chime.mp3')} volume={0.4} />
           <CinematicBackdrop src="poland/warsaw-skyline.jpg" dur={dur} pos="50% 45%" />
           <FloatingCapsule
             tag="শেয়ার করুন"
@@ -689,7 +771,7 @@ export const PolandVideo: React.FC<{
 };
 
 // -------------------------------------------------------------
-// ৮. এলিগেন্ট মিনিমাল থাম্বনেইল
+// ৮. এলিগেন্ট থাম্বনেইল
 // -------------------------------------------------------------
 export const PolandThumbnail: React.FC = () => {
   return (
@@ -741,7 +823,7 @@ export const PolandThumbnail: React.FC = () => {
             width: '100%',
             maxWidth: 820,
             padding: '40px 40px',
-            background: 'rgba(9, 14, 26, 0.7)',
+            background: 'rgba(9, 14, 26, 0.72)',
             backdropFilter: 'blur(30px)',
             borderRadius: 32,
             border: `1.5px solid ${BRAND_LIME}`,
