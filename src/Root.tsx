@@ -293,8 +293,8 @@ const MORE = [
   {id: 'DhormoByabsayi', ...fromStory(dhormo)},
   // মানবিক আলোকচিত্র: আন্ডার দ্য সেম স্কাই - পিনু রহমান ও কড়াইল বস্তির ৫ জন মানুষ
   {id: 'PinuRahman', ...fromStory(pinu)},
-  // বৈদেশিক কর্মসংস্থান: দালাল ছাড়া পোল্যান্ডে চাকরির ৫টি বিশ্বস্ত ওয়েবসাইট
-  {id: 'PolandJobs', ...fromStory(poland)},
+  // বৈদেশিক কর্মসংস্থান: দালাল ছাড়া পোল্যান্ডে চাকরির ৫টি বিশ্বস্ত ওয়েবসাইট (Client: Nazim Hossain)
+  {id: 'PolandJobs', folder: poland.folder, C: poland.Video, T: poland.Thumb, fb: poland.fb},
   // মিস্ট্রি: ৫জি ও মহামারীর টাইমলাইন সমাপতন (Arthur Firstenberg - The Invisible Rainbow)
   {id: 'FiveGConspiracy', ...fromStory(fiveg)},
   // ইতিহাস: ১৪ জুলাই ২০২৪-এর "রাজাকার" মন্তব্য থেকে ৫ আগস্ট (Jawad-এর স্ক্রিপ্ট, Law 4)

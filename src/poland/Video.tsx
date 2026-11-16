@@ -1,65 +1,80 @@
-// পোল্যান্ডে সরাসরি চাকরির ৫টি সেরা ওয়েবসাইট — PolandJobs
-// High-retention, authoritative BBA reel video design
+// পোল্যান্ডে সরাসরি চাকরির ৫টি সেরা ওয়েবসাইট — PolandJobs (Client: Nazim Hossain)
+// Sleek, high-end, professional corporate/tech agency style
 import React from 'react';
-import {AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
-import {GOLD, RED, clampOpts} from '../biz/art';
-import {Soft} from '../common/elegant';
-import {SP} from '../common/kit';
-import {PsyThumb} from '../common/psy';
-import {R, story} from '../common/reel';
+import {
+  AbsoluteFill,
+  Audio,
+  Img,
+  Sequence,
+  Video,
+  interpolate,
+  spring,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from 'remotion';
+import {loadFont} from '@remotion/google-fonts/NotoSansBengali';
+import {BaseSegment, FPS, Timing, stripTags} from '../common/meta';
 import raw from './segments.json';
 
-const LINE = '#1b1b1f';
+export const {fontFamily} = loadFont('normal', {
+  weights: ['500', '700', '800'],
+  subsets: ['bengali', 'latin'],
+});
+
+const segments = raw as BaseSegment[];
+
+// Client Brand Colors (Nazim Hossain)
+const BRAND_LIME = '#a3e635'; // Vibrant Lime Green (matches logo)
+const BRAND_LIME_GLOW = 'rgba(163, 230, 53, 0.55)';
+const BG_DARK = '#070b13';
+const TEXT_WHITE = '#ffffff';
+const TEXT_MUTED = '#94a3b8';
 
 // -------------------------------------------------------------
-// ১. মনোরম ডেপথ-অফ-ফিল্ড ব্যাকগ্রাউন্ড (Soft Bokeh Base)
+// ১. ক্লায়েন্ট অফিশিয়াল ওয়াটারমার্ক (Nazim Hossain)
 // -------------------------------------------------------------
-const ScenicAtmosphereBase: React.FC<{
-  photo?: 'agency' | 'apply' | 'warehouse' | 'construction' | 'tech' | 'skyline';
-}> = ({photo = 'apply'}) => {
-  const file =
-    photo === 'agency'
-      ? 'poland/agency-trap.jpg'
-      : photo === 'warehouse'
-      ? 'poland/warehouse-work.jpg'
-      : photo === 'construction'
-      ? 'poland/construction-poland.jpg'
-      : photo === 'tech'
-      ? 'poland/tech-developer.jpg'
-      : photo === 'skyline'
-      ? 'poland/warsaw-skyline.jpg'
-      : 'poland/direct-apply.jpg';
-
+const ClientWatermark: React.FC<{opacity?: number}> = ({opacity = 1}) => {
   return (
-    <Soft blur={10} tone="warm" bokeh={true}>
+    <div
+      style={{
+        position: 'absolute',
+        top: 60,
+        left: 60,
+        zIndex: 90,
+        opacity,
+      }}
+    >
       <Img
-        src={staticFile(file)}
+        src={staticFile('poland/nazim-watermark.png')}
         style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '50% 40%',
+          width: 290,
+          height: 'auto',
+          filter: 'drop-shadow(0 6px 20px rgba(0,0,0,0.85))',
         }}
       />
-    </Soft>
+    </div>
   );
 };
 
 // -------------------------------------------------------------
-// ২. ফুল স্ক্রিন সিনেমাটিক ফটো (Ken-Burns + সফট ভিনিয়েট)
+// ২. প্রফেশনাল সিনেমাটিক ব্যাকগ্রাউন্ড (Smooth Ken Burns + Rich Dark Vignette)
 // -------------------------------------------------------------
-const FullScenicPhoto: React.FC<{
+const ScenicBackground: React.FC<{
   src: string;
   dur: number;
   zoom?: [number, number];
   pos?: string;
   darken?: number;
-}> = ({src, dur, zoom = [1, 1.08], pos = '50% 50%', darken = 0.55}) => {
+}> = ({src, dur, zoom = [1.0, 1.07], pos = '50% 45%', darken = 0.65}) => {
   const f = useCurrentFrame();
-  const z = interpolate(f, [0, Math.max(1, dur)], zoom, clampOpts);
+  const z = interpolate(f, [0, Math.max(1, dur)], zoom, {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
   return (
-    <AbsoluteFill style={{overflow: 'hidden', background: '#0b0d12'}}>
+    <AbsoluteFill style={{overflow: 'hidden', background: BG_DARK}}>
       <Img
         src={staticFile(src)}
         style={{
@@ -70,9 +85,16 @@ const FullScenicPhoto: React.FC<{
           transform: `scale(${z})`,
         }}
       />
+      {/* সিনেমাটিক ব্লেন্ড ও আধুনিক কর্পোরেট গ্রেডিয়েন্ট */}
       <AbsoluteFill
         style={{
-          background: `radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0.1) 40%, rgba(10,12,18,${darken}) 100%)`,
+          background: `radial-gradient(ellipse at 50% 35%, rgba(10,16,28,0.2) 20%, rgba(7,11,19,${darken}) 90%)`,
+        }}
+      />
+      <AbsoluteFill
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(7,11,19,0.7) 0%, rgba(7,11,19,0.15) 25%, rgba(7,11,19,0.3) 65%, rgba(7,11,19,0.96) 100%)',
         }}
       />
     </AbsoluteFill>
@@ -80,26 +102,28 @@ const FullScenicPhoto: React.FC<{
 };
 
 // -------------------------------------------------------------
-// ৩. ফিজিক্যাল এলিগেন্ট পেপার কার্ড
+// ৩. ফ্রস্টেড গ্লাস কার্ড (Executive Tech Glassmorphism)
 // -------------------------------------------------------------
-const PhysicalPaperCard: React.FC<{
+const GlassCard: React.FC<{
   w?: number;
-  rot?: number;
-  bg?: string;
+  borderGlow?: boolean;
   children: React.ReactNode;
-}> = ({w = 760, rot = -1.2, bg = '#faf7f0', children}) => {
+}> = ({w = 820, borderGlow = false, children}) => {
   return (
     <div
       style={{
         width: w,
-        padding: '38px 36px',
-        background: bg,
-        border: `7px solid ${LINE}`,
-        borderRadius: 20,
-        boxShadow: '0 28px 65px rgba(0,0,0,0.56)',
-        color: '#15151b',
-        fontWeight: 800,
-        transform: `rotate(${rot}deg)`,
+        padding: '42px 40px',
+        background: 'rgba(12, 19, 34, 0.88)',
+        backdropFilter: 'blur(32px)',
+        WebkitBackdropFilter: 'blur(32px)',
+        borderRadius: 28,
+        border: borderGlow
+          ? `1.5px solid ${BRAND_LIME}`
+          : '1.5px solid rgba(255, 255, 255, 0.16)',
+        boxShadow: borderGlow
+          ? `0 30px 80px rgba(0,0,0,0.8), 0 0 45px ${BRAND_LIME_GLOW}`
+          : '0 30px 80px rgba(0,0,0,0.8), 0 0 30px rgba(255,255,255,0.05)',
         boxSizing: 'border-box',
         textAlign: 'center',
       }}
@@ -109,11 +133,214 @@ const PhysicalPaperCard: React.FC<{
   );
 };
 
-// কার্ড সেন্টার কন্টেইনার (সাবটাইটেল জোনের উপরে সুরক্ষিত)
+// টপ প্রিমিয়াম ব্যাজ পিল
+const BadgePill: React.FC<{
+  text: string;
+  bg?: string;
+  color?: string;
+  border?: string;
+}> = ({
+  text,
+  bg = 'rgba(163, 230, 53, 0.16)',
+  color = BRAND_LIME,
+  border = '1px solid rgba(163, 230, 53, 0.45)',
+}) => (
+  <div
+    style={{
+      display: 'inline-block',
+      padding: '8px 26px',
+      borderRadius: 999,
+      background: bg,
+      color,
+      fontSize: 26,
+      fontWeight: 800,
+      letterSpacing: 0.8,
+      marginBottom: 16,
+      border,
+      boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
+    }}
+  >
+    {text}
+  </div>
+);
+
+// -------------------------------------------------------------
+// ৪. আধুনিক ম্যাক ও ব্রাউজার ওয়েবসাইট শোকেস কার্ড (Ultra-Modern Browser Window)
+// -------------------------------------------------------------
+const ModernBrowserCard: React.FC<{
+  siteNumber: number;
+  siteName: string;
+  url: string;
+  categoryTag: string;
+  highlightText: string;
+  subText: string;
+  tags?: string[];
+}> = ({siteNumber, siteName, url, categoryTag, highlightText, subText, tags = []}) => {
+  return (
+    <div
+      style={{
+        width: 820,
+        background: 'rgba(13, 20, 36, 0.92)',
+        backdropFilter: 'blur(36px)',
+        WebkitBackdropFilter: 'blur(36px)',
+        border: '1.5px solid rgba(255, 255, 255, 0.18)',
+        borderRadius: 28,
+        boxShadow: '0 35px 85px rgba(0,0,0,0.85), 0 0 40px rgba(163, 230, 53, 0.12)',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* উইন্ডো হেডার বার */}
+      <div
+        style={{
+          background: 'rgba(19, 29, 49, 0.95)',
+          padding: '16px 24px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+        }}
+      >
+        {/* উইন্ডো কন্ট্রোল বাটন */}
+        <div style={{display: 'flex', gap: 9}}>
+          <div style={{width: 15, height: 15, borderRadius: '50%', background: '#ff5f56'}} />
+          <div style={{width: 15, height: 15, borderRadius: '50%', background: '#ffbd2e'}} />
+          <div style={{width: 15, height: 15, borderRadius: '50%', background: '#27c93f'}} />
+        </div>
+
+        {/* অ্যাড্রেস বার */}
+        <div
+          style={{
+            flex: 1,
+            background: 'rgba(10, 15, 28, 0.85)',
+            border: '1px solid rgba(255, 255, 255, 0.14)',
+            borderRadius: 12,
+            padding: '7px 18px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            fontSize: 22,
+            fontFamily: 'monospace',
+            color: '#e2e8f0',
+            fontWeight: 700,
+          }}
+        >
+          <span style={{color: BRAND_LIME, fontSize: 17}}>🔒</span>
+          <span style={{color: '#f8fafc'}}>{url}</span>
+        </div>
+      </div>
+
+      {/* পোর্টাল উইন্ডো বডি */}
+      <div style={{padding: '36px 36px', textAlign: 'center'}}>
+        {/* র্যাঙ্ক ও ক্যাটাগরি */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 18,
+          }}
+        >
+          <span
+            style={{
+              background: BRAND_LIME,
+              color: '#070b13',
+              fontSize: 24,
+              fontWeight: 900,
+              padding: '6px 20px',
+              borderRadius: 10,
+              letterSpacing: 0.5,
+            }}
+          >
+            #{siteNumber}
+          </span>
+          <span
+            style={{
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              color: '#38bdf8',
+              fontSize: 24,
+              fontWeight: 800,
+              padding: '6px 20px',
+              borderRadius: 10,
+            }}
+          >
+            {categoryTag}
+          </span>
+        </div>
+
+        {/* পোর্টালের বড় অফিশিয়াল নাম */}
+        <div
+          style={{
+            fontSize: 66,
+            fontWeight: 900,
+            color: TEXT_WHITE,
+            letterSpacing: 0.5,
+            marginBottom: 12,
+            lineHeight: 1.15,
+            textShadow: '0 4px 18px rgba(0,0,0,0.6)',
+          }}
+        >
+          {siteName}
+        </div>
+
+        {/* কী হাইলাইট */}
+        <div
+          style={{
+            fontSize: 32,
+            fontWeight: 800,
+            color: BRAND_LIME,
+            marginBottom: 10,
+            lineHeight: 1.35,
+          }}
+        >
+          {highlightText}
+        </div>
+
+        {/* সাব হেডিং */}
+        <div
+          style={{
+            fontSize: 26,
+            fontWeight: 600,
+            color: TEXT_MUTED,
+            lineHeight: 1.4,
+            marginBottom: 20,
+          }}
+        >
+          {subText}
+        </div>
+
+        {/* ফিচার ট্যাগগুলো */}
+        {tags.length > 0 && (
+          <div style={{display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap'}}>
+            {tags.map((tag, idx) => (
+              <span
+                key={idx}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  padding: '6px 16px',
+                  borderRadius: 8,
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: '#e2e8f0',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// কার্ড সেন্টার কন্টেইনার (উপরে সুরক্ষিত)
 const CenterCard: React.FC<{
   top?: number;
   children: React.ReactNode;
-}> = ({top = 410, children}) => {
+}> = ({top = 400, children}) => {
   return (
     <div
       style={{
@@ -133,647 +360,749 @@ const CenterCard: React.FC<{
   );
 };
 
-// টপ পিল ব্যাজ
-const TitlePill: React.FC<{
+// -------------------------------------------------------------
+// ৫. আধুনিক প্রফেশনাল সাবটাইটেল (Frosted Glass Pill with Brand Glow)
+// -------------------------------------------------------------
+const ModernSubtitle: React.FC<{
   text: string;
-  bg?: string;
-  color?: string;
-}> = ({text, bg = '#dc2626', color = '#ffffff'}) => (
-  <div
-    style={{
-      display: 'inline-block',
-      padding: '8px 24px',
-      borderRadius: 999,
-      background: bg,
-      color,
-      fontSize: 27,
-      fontWeight: 900,
-      letterSpacing: 1,
-      marginBottom: 16,
-      border: `2px solid ${LINE}`,
-      boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-    }}
-  >
-    {text}
-  </div>
-);
+  dur: number;
+}> = ({text, dur}) => {
+  const frame = useCurrentFrame();
+  const words = stripTags(text).split(/\s+/).filter(Boolean);
+  const n = words.length;
+  const progress = frame / Math.max(1, dur * 0.93);
+  const current = Math.min(n - 1, Math.floor(progress * n));
 
-// -------------------------------------------------------------
-// ৪. ব্রাউজার উইন্ডো ওয়েবসাইট শোকেস কার্ড
-// -------------------------------------------------------------
-const BrowserPortalCard: React.FC<{
-  siteNumber: number;
-  siteName: string;
-  url: string;
-  badgeText: string;
-  badgeBg?: string;
-  highlightText: string;
-  subText: string;
-  tagList?: string[];
-  rot?: number;
-}> = ({
-  siteNumber,
-  siteName,
-  url,
-  badgeText,
-  badgeBg = '#0284c7',
-  highlightText,
-  subText,
-  tagList = [],
-  rot = 1,
-}) => {
   return (
     <div
       style={{
-        width: 790,
-        background: '#ffffff',
-        border: `7px solid ${LINE}`,
-        borderRadius: 22,
-        boxShadow: '0 32px 75px rgba(0,0,0,0.65)',
-        transform: `rotate(${rot}deg)`,
-        overflow: 'hidden',
-        boxSizing: 'border-box',
+        position: 'absolute',
+        left: 50,
+        right: 50,
+        bottom: 160,
+        display: 'flex',
+        justifyContent: 'center',
+        zIndex: 50,
       }}
     >
-      {/* ব্রাউজার হেডার বার */}
       <div
         style={{
-          background: '#f1f5f9',
-          padding: '14px 20px',
-          borderBottom: `4px solid ${LINE}`,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 14,
+          background: 'rgba(8, 14, 26, 0.88)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1.2px solid rgba(255, 255, 255, 0.14)',
+          borderRadius: 24,
+          padding: '16px 36px',
+          boxShadow: '0 16px 45px rgba(0,0,0,0.7)',
+          textAlign: 'center',
+          maxWidth: 960,
         }}
       >
-        {/* ৩টি সার্কুলার উইন্ডো বাটন */}
-        <div style={{display: 'flex', gap: 8}}>
-          <div style={{width: 16, height: 16, borderRadius: '50%', background: '#ef4444', border: '1px solid #dc2626'}} />
-          <div style={{width: 16, height: 16, borderRadius: '50%', background: '#eab308', border: '1px solid #ca8a04'}} />
-          <div style={{width: 16, height: 16, borderRadius: '50%', background: '#22c55e', border: '1px solid #16a34a'}} />
-        </div>
-
-        {/* অ্যাড্রেস বার */}
         <div
           style={{
-            flex: 1,
-            background: '#ffffff',
-            border: '2px solid #cbd5e1',
-            borderRadius: 10,
-            padding: '6px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            fontSize: 22,
-            fontFamily: 'monospace',
-            color: '#1e293b',
-            fontWeight: 800,
+            fontSize: 50,
+            lineHeight: 1.42,
+            fontWeight: 700,
           }}
         >
-          <span style={{color: '#16a34a', fontSize: 18}}>🔒</span>
-          <span>{url}</span>
-        </div>
-      </div>
-
-      {/* পোর্টাল বডি */}
-      <div style={{padding: '34px 32px', textAlign: 'center'}}>
-        {/* টপ ব্যাজ */}
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16}}>
-          <span
-            style={{
-              background: '#0f172a',
-              color: '#ffffff',
-              fontSize: 26,
-              fontWeight: 900,
-              padding: '6px 18px',
-              borderRadius: 8,
-              letterSpacing: 0.5,
-            }}
-          >
-            #{siteNumber}
-          </span>
-          <span
-            style={{
-              background: badgeBg,
-              color: '#ffffff',
-              fontSize: 24,
-              fontWeight: 900,
-              padding: '6px 20px',
-              borderRadius: 999,
-              border: `2px solid ${LINE}`,
-            }}
-          >
-            {badgeText}
-          </span>
-        </div>
-
-        {/* পোর্টালের বড় নাম */}
-        <div style={{fontSize: 54, fontWeight: 900, color: '#0f172a', letterSpacing: -0.5, lineHeight: 1.15}}>
-          {siteName}
-        </div>
-
-        {/* হাইলাইট টেক্সট */}
-        <div style={{fontSize: 34, fontWeight: 900, color: '#dc2626', marginTop: 14, lineHeight: 1.3}}>
-          {highlightText}
-        </div>
-
-        {/* সাবটেক্সট */}
-        <div style={{fontSize: 28, fontWeight: 800, color: '#475569', marginTop: 10, lineHeight: 1.35}}>
-          {subText}
-        </div>
-
-        {/* ক্যাটাগরি ট্যাগ */}
-        {tagList.length > 0 && (
-          <div
-            style={{
-              marginTop: 20,
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: 10,
-            }}
-          >
-            {tagList.map((tag, idx) => (
+          {words.map((w, i) => {
+            const isActive = i === current;
+            const isPast = i < current;
+            return (
               <span
-                key={idx}
+                key={i}
                 style={{
-                  background: '#f8fafc',
-                  border: '2px solid #e2e8f0',
-                  padding: '6px 16px',
-                  borderRadius: 8,
-                  fontSize: 24,
-                  fontWeight: 800,
-                  color: '#334155',
+                  color: isActive ? BRAND_LIME : isPast ? TEXT_WHITE : 'rgba(255,255,255,0.38)',
+                  fontWeight: isActive ? 900 : 700,
+                  textShadow: isActive
+                    ? `0 0 22px ${BRAND_LIME_GLOW}, 0 2px 8px rgba(0,0,0,0.8)`
+                    : 'none',
+                  marginRight: 14,
+                  display: 'inline-block',
+                  transform: isActive ? 'scale(1.06)' : 'scale(1)',
+                  transition: 'transform 0.1s ease',
                 }}
               >
-                {tag}
+                {w}
               </span>
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 };
 
 // -------------------------------------------------------------
-// ৫. দৃশ্যভিত্তিক বিশেষায়িত কার্ডসমূহ
+// ৬. প্রতি দৃশ্যের ভিজ্যুয়াল কম্পোনেন্ট ম্যাপিং
 // -------------------------------------------------------------
+const SceneRenderer: React.FC<{id: string; dur: number}> = ({id, dur}) => {
+  switch (id) {
+    // ১. হুক: এজেন্সি প্রতারণা ও দালালের ফাঁদ
+    case 'h1':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/agency-trap.jpg" dur={dur} pos="50% 40%" darken={0.7} />
+          <CenterCard top={400}>
+            <GlassCard w={820} borderGlow={true}>
+              <BadgePill
+                text="ভিসা প্রতারণা ও এজেন্সির ফাঁদ"
+                bg="rgba(239, 68, 68, 0.2)"
+                color="#f87171"
+                border="1px solid rgba(239, 68, 68, 0.4)"
+              />
+              <div
+                style={{
+                  fontSize: 56,
+                  fontWeight: 900,
+                  color: TEXT_WHITE,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                লাখ লাখ টাকা নষ্ট আর নয়!
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: TEXT_MUTED,
+                  lineHeight: 1.45,
+                }}
+              >
+                দালাল বা এজেন্সির পেছনে না ঘুরে নিজের যোগ্যতায় কাজের সুযোগ নিন
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// হুক ১: দালাল বা এজেন্সির লাখ লাখ টাকা নষ্ট নয়
-const HookAgencyScamCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={-1.8} bg="#fffdf7">
-      <TitlePill text="ভিসা প্রতারণা ও দালালের ফাঁদ" bg="#dc2626" />
-      <div style={{fontSize: 52, fontWeight: 900, color: '#991b1b', lineHeight: 1.2}}>
-        লাখ লাখ টাকা নষ্ট আর নয়!
-      </div>
-      <div
-        style={{
-          height: 4,
-          background: '#dc2626',
-          borderRadius: 2,
-          margin: '18px auto 16px',
-          width: '60%',
-        }}
-      />
-      <div style={{fontSize: 34, fontWeight: 800, color: '#1e293b', lineHeight: 1.4}}>
-        দালাল বা এজেন্সির পেছনে ঘুরে<br />
-        <span style={{color: '#b91c1c', fontWeight: 900}}>নিজের উপার্জিত টাকা হারাবেন না</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ২. সমাধান: ইউরোপের বৈধ ক্যারিয়ার ও সরাসরি আবেদন
+    case 'h2':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820}>
+              <BadgePill text="ইউরোপের অফিসিয়াল ক্যারিয়ার" />
+              <div
+                style={{
+                  fontSize: 54,
+                  fontWeight: 900,
+                  color: TEXT_WHITE,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                পোল্যান্ডে সরাসরি চাকরির আবেদন!
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                কোম্পানিতে নিজের সিভি পাঠিয়ে কোনো দালাল ছাড়া চাকরির সুযোগ
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// হুক ২: নিজেই সরাসরি চাকরির আবেদন
-const DirectApplyHookCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={1.5} bg="#f8fafc">
-      <TitlePill text="ইউরোপের বৈধ ক্যারিয়ার" bg="#0284c7" />
-      <div style={{fontSize: 48, fontWeight: 900, color: '#0f172a', lineHeight: 1.25}}>
-        পোল্যান্ডে সরাসরি চাকরির আবেদন!
-      </div>
-      <div style={{fontSize: 34, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        কোম্পানিতে নিজের সিভি পাঠিয়ে<br />
-        <span style={{color: '#15803d', fontWeight: 900}}>জিরো দালাল খরচে বৈধ সুযোগ নিন</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ৩. ওয়ারশ স্কাইলাইন ও কাজের সুযোগ
+    case 'opportunity':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/warsaw-skyline.jpg" dur={dur} pos="50% 45%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820}>
+              <BadgePill text="পোল্যান্ড ওয়ার্ক ভিসা গাইড" />
+              <div
+                style={{
+                  fontSize: 56,
+                  fontWeight: 900,
+                  color: BRAND_LIME,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                বৈধভাবে কাজের সুযোগ
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#e2e8f0',
+                  lineHeight: 1.45,
+                }}
+              >
+                ইউরোপীয় ইউনিয়নের অনুমোদিত কোম্পানি ও সরকারিভাবে যাচাইকৃত চাকরির বিজ্ঞপ্তি
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// পোল্যান্ডে বৈধ কাজের সুযোগ
-const OpportunityCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={750} rot={-1.5} bg="#f0fdf4">
-      <TitlePill text="পোল্যান্ড ওয়ার্ক ভিসা" bg="#15803d" />
-      <div style={{fontSize: 50, fontWeight: 900, color: '#166534', lineHeight: 1.22}}>
-        বৈধভাবে কাজের সুযোগ
-      </div>
-      <div style={{fontSize: 33, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        ইউরোপীয় ইউনিয়নের অনুমোদিত কোম্পানি<br />
-        <span style={{color: '#b45309', fontWeight: 900}}>সরকারিভাবে যাচাইকৃত নিয়োগ বিজ্ঞপ্তি</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ৪. সেভ প্রম্পট
+    case 'save_prompt':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820} borderGlow={true}>
+              <BadgePill text="টপ ৫টি অথেনটিক পোর্টাল" />
+              <div
+                style={{
+                  fontSize: 54,
+                  fontWeight: 900,
+                  color: TEXT_WHITE,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                এই ৫টি ওয়েবসাইট আজই সেভ রাখুন!
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                ভবিষ্যতে যাতে হারিয়ে না যায় — বুকমার্ক ও সেভ করে রাখুন এখনই
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// ৫টি ওয়েবসাইট আজই সেভ রাখুন
-const SavePromptCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={1.8} bg="#fffbeb">
-      <TitlePill text="টপ ৫টি জব প্ল্যাটফর্ম" bg="#d97706" />
-      <div style={{fontSize: 48, fontWeight: 900, color: '#92400e', lineHeight: 1.25}}>
-        এই ৫টি সাইট আজই সেভ রাখুন!
-      </div>
-      <div style={{fontSize: 33, fontWeight: 800, color: '#1f2937', marginTop: 14, lineHeight: 1.4}}>
-        ভবিষ্যতে যাতে হারিয়ে না যায়<br />
-        <span style={{color: '#dc2626', fontWeight: 900}}>বুকমার্ক ও সেভ করে রাখুন এখনই</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ৫. সাইট ১ পরিচিতি: Pracuj.pl
+    case 'site1_intro':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" darken={0.7} />
+          <CenterCard top={360}>
+            <ModernBrowserCard
+              siteNumber={1}
+              siteName="Pracuj.pl"
+              url="https://www.pracuj.pl"
+              categoryTag="পোল্যান্ডের #১ পোর্টাল"
+              highlightText="সবচেয়ে বড় ও নির্ভরযোগ্য জব সাইট"
+              subText="সরকারি ও পোলিশ কোম্পানির ভেরিফাইড অফার"
+              tags={['সব সেক্টর', 'ইংরেজি সাপোর্ট', 'ভেরিফাইড কোম্পানি']}
+            />
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// সাইট ১ বিস্তারিত: সব ধরনের কাজের অফার
-const Site1DetailCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={-1.5} bg="#eff6ff">
-      <TitlePill text="Pracuj.pl · পোল্যান্ডের শীর্ষ সাইট" bg="#1d4ed8" />
-      <div style={{fontSize: 48, fontWeight: 900, color: '#1e3a8a', lineHeight: 1.25}}>
-        পোল্যান্ডের সবচেয়ে বড় জব পোর্টাল
-      </div>
-      <div style={{fontSize: 33, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        হসপিটালিটি · সেলস · অফিস · লজিস্টিকস<br />
-        <span style={{color: '#059669', fontWeight: 900}}>সব সেক্টরের লাখ লাখ নিয়মিত অফার</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ৬. সাইট ১ বিস্তারিত
+    case 'site1_detail':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820}>
+              <BadgePill text="Pracuj.pl • অফিশিয়াল জব মার্কেট" />
+              <div
+                style={{
+                  fontSize: 54,
+                  fontWeight: 900,
+                  color: BRAND_LIME,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                সব ধরনের কাজের সেরা অফার
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                হসপিটালিটি • সেলস • অফিস • লজিস্টিকস — সব সেক্টরের জব প্রতিনিয়ত আপডেট
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// সাইট ২ বিস্তারিত: প্রতিদিন হাজারো বিজ্ঞাপন
-const Site2DetailCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={1.5} bg="#f0fdf4">
-      <TitlePill text="Praca.pl · দৈনিক আপডেট" bg="#059669" />
-      <div style={{fontSize: 48, fontWeight: 900, color: '#065f46', lineHeight: 1.25}}>
-        প্রতিদিন হাজারো নতুন বিজ্ঞাপন
-      </div>
-      <div style={{fontSize: 33, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        সরাসরি নিয়োগদাতা কোম্পানির এইচআর<br />
-        <span style={{color: '#b91c1c', fontWeight: 900}}>কোনো তৃতীয় পক্ষ ছাড়াই সরাসরি আবেদন</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ৭. সাইট ২ পরিচিতি: Praca.pl
+    case 'site2_intro':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" darken={0.7} />
+          <CenterCard top={360}>
+            <ModernBrowserCard
+              siteNumber={2}
+              siteName="Praca.pl"
+              url="https://www.praca.pl"
+              categoryTag="দৈনিক ফ্রেশ জবস"
+              highlightText="হাজারো নতুন সার্কুলার"
+              subText="পোল্যান্ডের জনপ্রিয় ক্যারিয়ার প্ল্যাটফর্ম"
+              tags={['ডেইলি আপডেট', 'সরাসরি সিভি সেন্ড', 'ফ্রি রেজিস্ট্রেশন']}
+            />
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// সাইট ৩ বিস্তারিত: কনস্ট্রাকশন ও ওয়্যারহাউস
-const Site3DetailCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={770} rot={-1.8} bg="#fff7ed">
-      <TitlePill text="praca.olx.pl · দ্রুত কাজের সেরা সাইট" bg="#ea580c" />
-      <div style={{fontSize: 46, fontWeight: 900, color: '#9a3412', lineHeight: 1.25}}>
-        কনস্ট্রাকশন · প্রোডাকশন · ওয়্যারহাউস
-      </div>
-      <div style={{fontSize: 33, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        ফ্যাক্টরি ও গুদামজাতকরণে জরুরি নিয়োগ<br />
-        <span style={{color: '#0284c7', fontWeight: 900}}>কম অভিজ্ঞতাতেও দ্রুত কাজ পাওয়ার প্ল্যাটফর্ম</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ৮. সাইট ২ বিস্তারিত
+    case 'site2_detail':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820}>
+              <BadgePill text="Praca.pl • প্রতিদিনের আপডেট" />
+              <div
+                style={{
+                  fontSize: 54,
+                  fontWeight: 900,
+                  color: TEXT_WHITE,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                প্রতিদিন হাজারো নতুন বিজ্ঞাপন
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                সরাসরি নিয়োগদাতা কোম্পানির এইচআর-এ কোনো থার্ড পার্টি ছাড়াই আবেদন
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// আইটি ও টেক সেক্টর ইন্ট্রো
-const TechIntroCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={1.5} bg="#f5f3ff">
-      <TitlePill text="হাই-স্যালারি ইউরোপ ক্যারিয়ার" bg="#7c3aed" />
-      <div style={{fontSize: 48, fontWeight: 900, color: '#5b21b6', lineHeight: 1.25}}>
-        আইটি বা টেক সেক্টরে চাকরি
-      </div>
-      <div style={{fontSize: 33, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        সফটওয়্যার · ডেটা · ক্লাউড · সাপোর্ট<br />
-        <span style={{color: '#059669', fontWeight: 900}}>ইউরোপের শীর্ষ টেক হাব পোল্যান্ড</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ৯. সাইট ৩ পরিচিতি: praca.olx.pl
+    case 'site3_intro':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/warehouse-work.jpg" dur={dur} pos="50% 45%" darken={0.7} />
+          <CenterCard top={360}>
+            <ModernBrowserCard
+              siteNumber={3}
+              siteName="praca.olx.pl"
+              url="https://praca.olx.pl"
+              categoryTag="দ্রুত নিয়োগ"
+              highlightText="ব্লু-কলার কাজের সেরা মার্কেট"
+              subText="সরাসরি সুপারভাইজার ও কোম্পানির সাথে যোগাযোগ"
+              tags={['ওয়্যারহাউস', 'ড্রাইভিং', 'কনস্ট্রাকশন', 'ক্লিনার']}
+            />
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// সিটিএ ১: ভিডিওটি সেভ রাখুন
-const CtaSaveCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={-1.5} bg="#fffbeb">
-      <TitlePill text="জরুরি রিমাইন্ডার" bg="#d97706" />
-      <div style={{fontSize: 48, fontWeight: 900, color: '#92400e', lineHeight: 1.25}}>
-        ভিডিওটি এখনই সেভ করে রাখুন!
-      </div>
-      <div style={{fontSize: 34, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        যাতে ৫টি ওয়েবসাইটের নাম হারিয়ে না যায়<br />
-        <span style={{color: '#dc2626', fontWeight: 900}}>আবেদনের সময় যাতে দ্রুত খুঁজে পান</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ১০. সাইট ৩ বিস্তারিত: কনস্ট্রাকশন ও ওয়্যারহাউস
+    case 'site3_detail':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground
+            src="poland/construction-poland.jpg"
+            dur={dur}
+            pos="50% 45%"
+            darken={0.65}
+          />
+          <CenterCard top={400}>
+            <GlassCard w={820}>
+              <BadgePill text="praca.olx.pl • জেনারেল ওয়ার্ক" />
+              <div
+                style={{
+                  fontSize: 50,
+                  fontWeight: 900,
+                  color: BRAND_LIME,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                কনস্ট্রাকশন • প্রোডাকশন • ওয়্যারহাউস
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                ফ্যাক্টরি ও গুদামজাতকরণে জরুরি নিয়োগ — কম অভিজ্ঞতায় দ্রুত কাজ পাওয়ার প্ল্যাটফর্ম
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// সিটিএ ২: বন্ধুদের সাথে শেয়ার করুন
-const CtaShareCard: React.FC = () => {
-  return (
-    <PhysicalPaperCard w={760} rot={1.5} bg="#f0fdf4">
-      <TitlePill text="শেয়ার করে পাশে থাকুন" bg="#15803d" />
-      <div style={{fontSize: 46, fontWeight: 900, color: '#14532d', lineHeight: 1.25}}>
-        পোল্যান্ড যেতে ইচ্ছুক বন্ধুদের শেয়ার করুন
-      </div>
-      <div style={{fontSize: 33, fontWeight: 800, color: '#334155', marginTop: 14, lineHeight: 1.4}}>
-        দালালের প্রতারণা থেকে নিজের পরিচিতদের বাঁচান<br />
-        <span style={{color: '#b45309', fontWeight: 900}}>সঠিক তথ্য ছড়িয়ে দিয়ে সহযোগিতা করুন ↗</span>
-      </div>
-    </PhysicalPaperCard>
-  );
-};
+    // ১১. আইটি ও টেক ভূমিকা
+    case 'tech_intro':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/tech-developer.jpg" dur={dur} pos="50% 40%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820} borderGlow={true}>
+              <BadgePill text="হাই-স্যালারি ইউরোপ ক্যারিয়ার" />
+              <div
+                style={{
+                  fontSize: 54,
+                  fontWeight: 900,
+                  color: TEXT_WHITE,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                আইটি বা টেক সেক্টরে চাকরি
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                সফটওয়্যার • ডেটা • ক্লাউড • সাপোর্ট — ইউরোপের শীর্ষ টেক হাব পোল্যান্ড
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-// -------------------------------------------------------------
-// ৬. দৃশ্যের দৃশ্যবিন্যাস (SCENES ম্যাপিং)
-// -------------------------------------------------------------
-const SCENES: Record<string, React.FC<SP>> = {
-  // ১. দালাল বা এজেন্সির পেছনে লাখ লাখ টাকা নষ্ট না করে
-  h1: R({
-    place: <ScenicAtmosphereBase photo="agency" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/agency-trap.jpg" dur={dur} zoom={[1.08, 1.2]} pos="50% 45%" />
-    ),
-    over: () => (
-      <CenterCard top={400}>
-        <HookAgencyScamCard />
-      </CenterCard>
-    ),
-  }),
+    // ১২. সাইট ৪: nofluffjobs.com
+    case 'site4':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/tech-developer.jpg" dur={dur} pos="50% 40%" darken={0.7} />
+          <CenterCard top={360}>
+            <ModernBrowserCard
+              siteNumber={4}
+              siteName="NoFluffJobs"
+              url="https://nofluffjobs.com"
+              categoryTag="১০০% স্যালারি উল্লেখ"
+              highlightText="ইউরোপীয় আইটি ও টেক জবস"
+              subText="বেতন ও সুযোগ-সুবিধা সম্পূর্ণ উন্মুক্ত"
+              tags={['সফটওয়্যার', 'ক্লিনিক', 'রিমোট / অনসাইট']}
+            />
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-  // ২. নিজেই পোল্যান্ডের কোম্পানিগুলোতে সরাসরি চাকরির আবেদন করতে চান?
-  h2: R({
-    place: <ScenicAtmosphereBase photo="apply" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/direct-apply.jpg" dur={dur} zoom={[1.05, 1.15]} pos="50% 35%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <DirectApplyHookCard />
-      </CenterCard>
-    ),
-  }),
+    // ১৩. সাইট ৫: justjoin.it
+    case 'site5':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/tech-developer.jpg" dur={dur} pos="50% 40%" darken={0.7} />
+          <CenterCard top={360}>
+            <ModernBrowserCard
+              siteNumber={5}
+              siteName="JustJoin.it"
+              url="https://justjoin.it"
+              categoryTag="ইউরোপের #১ টেক সাইট"
+              highlightText="ডেভেলপার ও টেক প্রফেশনালস"
+              subText="পোল্যান্ড ও ইউরোপের শীর্ষ স্টার্টআপ"
+              tags={['প্রোডাক্ট', 'আইটি সাপোর্ট', 'হাই স্যালারি']}
+            />
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-  // ৩. পোল্যান্ডে বৈধভাবে কাজের সুযোগ পেতে
-  opportunity: R({
-    place: <ScenicAtmosphereBase photo="skyline" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/warsaw-skyline.jpg" dur={dur} zoom={[1.04, 1.12]} pos="50% 40%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <OpportunityCard />
-      </CenterCard>
-    ),
-  }),
+    // ১৪. রিটেনশন ও সেভ রিমাইন্ডার
+    case 'cta_save':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/direct-apply.jpg" dur={dur} pos="50% 50%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820} borderGlow={true}>
+              <BadgePill text="জরুরি রিমাইন্ডার" />
+              <div
+                style={{
+                  fontSize: 54,
+                  fontWeight: 900,
+                  color: BRAND_LIME,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                ভিডিওটি এখনই সেভ করে রাখুন!
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                যাতে এই ৫টি ওয়েবসাইটের নাম হারিয়ে না যায় — আবেদনের সময় যাতে দ্রুত খুঁজে পান
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-  // ৪. এই পাঁচটি নির্ভরযোগ্য ওয়েবসাইট আজই সেভ করে রাখুন।
-  save_prompt: R({
-    place: <ScenicAtmosphereBase photo="apply" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/direct-apply.jpg" dur={dur} zoom={[1.06, 1.14]} pos="50% 50%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <SavePromptCard />
-      </CenterCard>
-    ),
-  }),
+    // ১৫. শেয়ার CTA
+    case 'cta_share':
+      return (
+        <AbsoluteFill>
+          <ScenicBackground src="poland/warsaw-skyline.jpg" dur={dur} pos="50% 45%" darken={0.65} />
+          <CenterCard top={400}>
+            <GlassCard w={820}>
+              <BadgePill text="শেয়ার করে পাশে থাকুন" />
+              <div
+                style={{
+                  fontSize: 50,
+                  fontWeight: 900,
+                  color: TEXT_WHITE,
+                  lineHeight: 1.25,
+                  marginBottom: 14,
+                }}
+              >
+                পোল্যান্ড যেতে ইচ্ছুক বন্ধুদের শেয়ার করুন
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 600,
+                  color: '#cbd5e1',
+                  lineHeight: 1.45,
+                }}
+              >
+                দালালের প্রতারণা থেকে নিজের পরিচিতদের বাঁচান এবং সঠিক তথ্য ছড়িয়ে দিন
+              </div>
+            </GlassCard>
+          </CenterCard>
+        </AbsoluteFill>
+      );
 
-  // ৫. প্রথমটি হলো Pracuj.pl।
-  site1_intro: R({
-    place: <ScenicAtmosphereBase photo="apply" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/direct-apply.jpg" dur={dur} zoom={[1, 1.08]} pos="50% 35%" darken={0.65} />
-    ),
-    over: () => (
-      <CenterCard top={380}>
-        <BrowserPortalCard
-          siteNumber={1}
-          siteName="Pracuj.pl"
-          url="https://www.pracuj.pl"
-          badgeText="পোল্যান্ডের #১ পোর্টাল"
-          badgeBg="#0057b8"
-          highlightText="সবচেয়ে বড় ও নির্ভরযোগ্য জব সাইট"
-          subText="সরাসরি পোলিশ কোম্পানির ভেরিফাইড অফার"
-          tagList={['সব সেক্টর', 'ইংরেজি সাপোর্ট', 'ভেরিফাইড কোম্পানি']}
-          rot={-1}
-        />
-      </CenterCard>
-    ),
-  }),
-
-  // ৬. এটি পোল্যান্ডের সবচেয়ে বড় জব পোর্টাল, যেখানে সব ধরনের কাজের অফার পাবেন।
-  site1_detail: R({
-    place: <ScenicAtmosphereBase photo="apply" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/direct-apply.jpg" dur={dur} zoom={[1.08, 1.16]} pos="50% 45%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <Site1DetailCard />
-      </CenterCard>
-    ),
-  }),
-
-  // ৭. দ্বিতীয়টি হলো Praca.pl।
-  site2_intro: R({
-    place: <ScenicAtmosphereBase photo="skyline" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/warsaw-skyline.jpg" dur={dur} zoom={[1, 1.08]} pos="50% 50%" darken={0.65} />
-    ),
-    over: () => (
-      <CenterCard top={380}>
-        <BrowserPortalCard
-          siteNumber={2}
-          siteName="Praca.pl"
-          url="https://www.praca.pl"
-          badgeText="প্রতিদিনের অফার"
-          badgeBg="#059669"
-          highlightText="হাজারো নতুন সার্কুলার"
-          subText="পোল্যান্ডের জনপ্রিয় ক্যারিয়ার পোর্টাল"
-          tagList={['ডেইলি আপডেট', 'সরাসরি সিভি সেন্ড', 'ফ্রি রেজিস্ট্রেশন']}
-          rot={1.2}
-        />
-      </CenterCard>
-    ),
-  }),
-
-  // ৮. এখানে প্রতিদিন হাজারো নতুন চাকরির বিজ্ঞাপন আসে।
-  site2_detail: R({
-    place: <ScenicAtmosphereBase photo="skyline" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/warsaw-skyline.jpg" dur={dur} zoom={[1.08, 1.16]} pos="50% 30%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <Site2DetailCard />
-      </CenterCard>
-    ),
-  }),
-
-  // ৯. তিন নম্বরে আছে praca.olx.pl।
-  site3_intro: R({
-    place: <ScenicAtmosphereBase photo="warehouse" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/warehouse-work.jpg" dur={dur} zoom={[1, 1.08]} pos="50% 45%" darken={0.65} />
-    ),
-    over: () => (
-      <CenterCard top={380}>
-        <BrowserPortalCard
-          siteNumber={3}
-          siteName="praca.olx.pl"
-          url="https://praca.olx.pl"
-          badgeText="দ্রুত নিয়োগ"
-          badgeBg="#0d9488"
-          highlightText="ব্লু-কলার কাজের সেরা মার্কেট"
-          subText="সরাসরি সুপারভাইজার ও কোম্পানির সাথে যোগাযোগ"
-          tagList={['ওয়্যারহাউস', 'ফ্যাক্টরি', 'কনস্ট্রাকশন', 'ড্রাইভার']}
-          rot={-1.2}
-        />
-      </CenterCard>
-    ),
-  }),
-
-  // ১০. কনস্ট্রাকশন, প্রোডাকশন বা ওয়্যারহাউসে দ্রুত কাজ খোঁজার জন্য এটি সেরা।
-  site3_detail: R({
-    place: <ScenicAtmosphereBase photo="construction" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/construction-poland.jpg" dur={dur} zoom={[1.05, 1.15]} pos="50% 40%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <Site3DetailCard />
-      </CenterCard>
-    ),
-  }),
-
-  // ১১. আর আপনি যদি আইটি বা টেক সেক্টরে কাজ খুঁজছেন,
-  tech_intro: R({
-    place: <ScenicAtmosphereBase photo="tech" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/tech-developer.jpg" dur={dur} zoom={[1.05, 1.15]} pos="50% 35%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <TechIntroCard />
-      </CenterCard>
-    ),
-  }),
-
-  // ১২. তাহলে ভিজিট করুন nofluffjobs.com
-  site4: R({
-    place: <ScenicAtmosphereBase photo="tech" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/tech-developer.jpg" dur={dur} zoom={[1.08, 1.16]} pos="50% 45%" darken={0.65} />
-    ),
-    over: () => (
-      <CenterCard top={380}>
-        <BrowserPortalCard
-          siteNumber={4}
-          siteName="NoFluffJobs"
-          url="https://nofluffjobs.com"
-          badgeText="১০০% স্যালারি উল্লেখ"
-          badgeBg="#0284c7"
-          highlightText="ইউরোপীয় আইটি ও টেক জবস"
-          subText="বেতন ও সুযোগ-সুবিধা সম্পূর্ণ উন্মুক্ত"
-          tagList={['সফটওয়্যার', 'ক্লাউড', 'রিমোট / অনসাইট']}
-          rot={1}
-        />
-      </CenterCard>
-    ),
-  }),
-
-  // ১৩. এবং justjoin.it।
-  site5: R({
-    place: <ScenicAtmosphereBase photo="tech" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/tech-developer.jpg" dur={dur} zoom={[1.14, 1.22]} pos="50% 25%" darken={0.65} />
-    ),
-    over: () => (
-      <CenterCard top={380}>
-        <BrowserPortalCard
-          siteNumber={5}
-          siteName="JustJoin.it"
-          url="https://justjoin.it"
-          badgeText="ইউরোপের #১ টেক সাইট"
-          badgeBg="#7c3aed"
-          highlightText="ডেভেলপার ও টেক প্রফেশনালস"
-          subText="পোল্যান্ড ও ইউরোপের শীর্ষ স্টার্টআপ"
-          tagList={['প্রোগ্রামিং', 'আইটি সাপোর্ট', 'হাই স্যালারি']}
-          rot={-1}
-        />
-      </CenterCard>
-    ),
-  }),
-
-  // ১৪. ভিডিওটি এখনই সেভ করে রাখুন যাতে সাইটগুলোর নাম হারিয়ে না যায়,
-  cta_save: R({
-    place: <ScenicAtmosphereBase photo="skyline" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/warsaw-skyline.jpg" dur={dur} zoom={[1.05, 1.14]} pos="50% 45%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <CtaSaveCard />
-      </CenterCard>
-    ),
-  }),
-
-  // ১৫. আর পোল্যান্ডে যেতে ইচ্ছুক বন্ধুদের সাথে শেয়ার করুন।
-  cta_share: R({
-    place: <ScenicAtmosphereBase photo="skyline" />,
-    back: (_f, dur) => (
-      <FullScenicPhoto src="poland/warsaw-skyline.jpg" dur={dur} zoom={[1.12, 1.22]} pos="50% 35%" />
-    ),
-    over: () => (
-      <CenterCard top={410}>
-        <CtaShareCard />
-      </CenterCard>
-    ),
-  }),
-};
-
-// -------------------------------------------------------------
-// ৭. থাম্বনেইল
-// -------------------------------------------------------------
-export const PolandJobsThumbnail: React.FC = () => {
-  return (
-    <PsyThumb
-      l1="পোল্যান্ডে সরাসরি চাকরি!"
-      l2="দালাল ছাড়াই ৫টি সাইট"
-      bottom="বৈধ উপায়ে ইউরোপে কাজের নির্ভরযোগ্য জব পোর্টাল"
-      term="Poland Work Visa · Direct Apply Websites"
-      art={
-        <div style={{width: '100%', height: '100%', background: '#0e1117', position: 'relative', overflow: 'hidden'}}>
-          <Img
-            src={staticFile('poland/warsaw-skyline.jpg')}
+    // ১৬. ক্লায়েন্ট আউটরো ভিডিও সেগমেন্ট
+    case 'outro':
+      return (
+        <AbsoluteFill style={{background: '#ffffff'}}>
+          <Video
+            src={staticFile('poland/outro.mp4')}
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: '50% 40%',
-              transform: 'scale(1.15)',
             }}
           />
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.15) 30%, rgba(10,12,18,0.85) 100%)',
-            }}
-          />
-        </div>
-      }
-      size={80}
-    />
+        </AbsoluteFill>
+      );
+
+    default:
+      return null;
+  }
+};
+
+// -------------------------------------------------------------
+// ৭. মূল PolandVideo কম্পোজিশন (Full Professional Client Reel)
+// -------------------------------------------------------------
+export const PolandVideo: React.FC<{
+  timing: Timing;
+  hasAudio: boolean;
+}> = ({timing, hasAudio}) => {
+  const {fps} = useVideoConfig();
+
+  // ভয়েস শেষ হওয়ার ফ্রেম (আউটরো শুরু)
+  const voiceEndSec = 51.78;
+  const voiceEndFrame = Math.round(voiceEndSec * fps); // ফ্রেম 1553
+
+  return (
+    <AbsoluteFill style={{backgroundColor: BG_DARK, fontFamily, color: TEXT_WHITE}}>
+      {/* ১. ভয়েস অডিও ট্র্যাক (০ থেকে ৫১.৭৮ সেকেন্ড পর্যন্ত) */}
+      {hasAudio && (
+        <Sequence durationInFrames={voiceEndFrame}>
+          <Audio src={staticFile('poland/voice.mp3')} />
+        </Sequence>
+      )}
+
+      {/* ২. প্রতিটি সিন সিকোয়েন্স */}
+      {segments.map((seg, i) => {
+        const t = timing.segments[i];
+        if (!t) return null;
+        const from = Math.round(t.start * fps);
+        const dur = Math.max(2, Math.round(t.end * fps) - from);
+
+        return (
+          <Sequence key={seg.id} from={from} durationInFrames={dur}>
+            <AbsoluteFill style={{overflow: 'hidden'}}>
+              <SceneRenderer id={seg.id} dur={dur} />
+              {/* সাবটাইটেল শুধু কথা বলার অংশে দেখাবে (আউটরোতে নয়) */}
+              {seg.text ? <ModernSubtitle text={seg.text} dur={dur} /> : null}
+            </AbsoluteFill>
+          </Sequence>
+        );
+      })}
+
+      {/* ৩. ক্লায়েন্ট অফিশিয়াল ওয়াটারমার্ক (আউটরোর আগ পর্যন্ত পুরো ভিডিও জুড়ে) */}
+      <Sequence durationInFrames={voiceEndFrame}>
+        <ClientWatermark />
+      </Sequence>
+    </AbsoluteFill>
   );
 };
 
-export const poland = story('poland/', raw, SCENES, PolandJobsThumbnail, {logo: 'bba2'});
-export const PolandJobs = poland;
+// -------------------------------------------------------------
+// ৮. থাম্বনেইল কম্পোনেন্ট (Client Nazim Hossain)
+// -------------------------------------------------------------
+export const PolandThumbnail: React.FC = () => {
+  return (
+    <AbsoluteFill style={{backgroundColor: BG_DARK, fontFamily, overflow: 'hidden'}}>
+      {/* ব্যাকগ্রাউন্ড */}
+      <Img
+        src={staticFile('poland/direct-apply.jpg')}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '50% 45%',
+          transform: 'scale(1.05)',
+        }}
+      />
+      <AbsoluteFill
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(7,11,19,0.75) 0%, rgba(7,11,19,0.25) 25%, rgba(7,11,19,0.5) 60%, rgba(7,11,19,0.98) 100%)',
+        }}
+      />
+
+      {/* ক্লায়েন্ট ওয়াটারমার্ক */}
+      <div style={{position: 'absolute', top: 70, left: 70, zIndex: 100}}>
+        <Img
+          src={staticFile('poland/nazim-watermark.png')}
+          style={{
+            width: 340,
+            height: 'auto',
+            filter: 'drop-shadow(0 6px 24px rgba(0,0,0,0.9))',
+          }}
+        />
+      </div>
+
+      {/* থাম্বনেইল সেন্টার কার্ড */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 480,
+          left: 60,
+          right: 60,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          zIndex: 50,
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            padding: '48px 44px',
+            background: 'rgba(12, 19, 34, 0.92)',
+            backdropFilter: 'blur(36px)',
+            borderRadius: 32,
+            border: `2px solid ${BRAND_LIME}`,
+            boxShadow: `0 35px 90px rgba(0,0,0,0.85), 0 0 50px ${BRAND_LIME_GLOW}`,
+            textAlign: 'center',
+            boxSizing: 'border-box',
+          }}
+        >
+          <BadgePill
+            text="পোল্যান্ড ক্যারিয়ার গাইড"
+            bg="rgba(163, 230, 53, 0.2)"
+            color={BRAND_LIME}
+            border="1px solid rgba(163, 230, 53, 0.5)"
+          />
+
+          <div
+            style={{
+              fontSize: 66,
+              fontWeight: 900,
+              color: TEXT_WHITE,
+              lineHeight: 1.25,
+              marginTop: 10,
+              marginBottom: 16,
+              textShadow: '0 4px 20px rgba(0,0,0,0.7)',
+            }}
+          >
+            দালাল ছাড়া চাকরির <br />
+            <span style={{color: BRAND_LIME}}>৫টি সেরা ওয়েবসাইট</span>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 14,
+              marginTop: 20,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span
+              style={{
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                padding: '8px 22px',
+                borderRadius: 12,
+                fontSize: 24,
+                fontWeight: 800,
+                color: '#f8fafc',
+              }}
+            >
+              ১০০% ফ্রি
+            </span>
+            <span
+              style={{
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                padding: '8px 22px',
+                borderRadius: 12,
+                fontSize: 24,
+                fontWeight: 800,
+                color: '#f8fafc',
+              }}
+            >
+              সরাসরি আবেদন
+            </span>
+            <span
+              style={{
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                padding: '8px 22px',
+                borderRadius: 12,
+                fontSize: 24,
+                fontWeight: 800,
+                color: '#f8fafc',
+              }}
+            >
+              অফিশিয়াল পোর্টাল
+            </span>
+          </div>
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// ফোলব্যাক টাইমিং
+export const polandFallback: Timing = {
+  total: 61.81,
+  segments: (raw as BaseSegment[]).map((s, idx) => ({
+    id: s.id,
+    start: idx === 15 ? 51.78 : idx * 3.45,
+    end: idx === 15 ? 61.81 : (idx + 1) * 3.45,
+  })),
+};
+
+export const poland = {
+  folder: 'poland/',
+  Video: PolandVideo,
+  Thumb: PolandThumbnail,
+  fb: polandFallback,
+};

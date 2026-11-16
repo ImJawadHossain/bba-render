@@ -1,5 +1,5 @@
 {
-  "total": 51.78,
+  "total": 61.81,
   "segments": [
     {
       "id": "h1",
@@ -90,6 +90,12 @@
       "start": 48.6,
       "end": 51.78,
       "voiceStart": 48.6
+    },
+    {
+      "id": "outro",
+      "start": 51.78,
+      "end": 61.81,
+      "voiceStart": 51.78
     }
   ]
 }
